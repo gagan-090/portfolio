@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../utils/animations';
+import { supabase } from '../supabaseClient';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,14 +11,37 @@ export const Contact = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
     if (formData.name && formData.email) {
-      setSubmitted(true);
-      // reset form
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setSubmitted(false), 5000);
+      setIsSubmitting(true);
+      
+      const { error: submitError } = await supabase
+        .from('contact_messages')
+        .insert([
+          { 
+            name: formData.name, 
+            email: formData.email, 
+            subject: formData.subject, 
+            message: formData.message 
+          }
+        ]);
+
+      setIsSubmitting(false);
+
+      if (submitError) {
+        console.error('Error submitting form:', submitError);
+        setError('There was an error sending your message. Please try again.');
+      } else {
+        setSubmitted(true);
+        // reset form
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      }
     }
   };
 
@@ -30,7 +54,7 @@ export const Contact = () => {
     <div className="w-full bg-white select-none">
       {/* Hero Header */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
-        <motion.div 
+        <motion.div
           className="grid grid-cols-12 gap-gutter mt-12 md:mt-20"
           initial="hidden"
           animate="visible"
@@ -72,7 +96,7 @@ export const Contact = () => {
                 <div className="flex flex-col">
                   <span className="font-label-mono text-[10px] uppercase text-outline mb-1">Location</span>
                   <span className="font-subhead-italic text-subhead-italic italic text-2xl">
-                    Bangalore, India
+                    Noida, India
                   </span>
                 </div>
               </div>
@@ -104,8 +128,8 @@ export const Contact = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="flex flex-col gap-2">
                     <label className="font-label-mono text-label-mono uppercase text-on-surface-variant">Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="name"
                       required
                       value={formData.name}
@@ -116,8 +140,8 @@ export const Contact = () => {
                   </div>
                   <div className="flex flex-col gap-2">
                     <label className="font-label-mono text-label-mono uppercase text-on-surface-variant">Email</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
                       required
                       value={formData.email}
@@ -129,8 +153,8 @@ export const Contact = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="font-label-mono text-label-mono uppercase text-on-surface-variant">Subject</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
@@ -140,7 +164,7 @@ export const Contact = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="font-label-mono text-label-mono uppercase text-on-surface-variant">Message</label>
-                  <textarea 
+                  <textarea
                     name="message"
                     rows="4"
                     value={formData.message}
@@ -149,6 +173,12 @@ export const Contact = () => {
                     className="bg-transparent border-b border-outline-variant py-2 focus:outline-none focus:border-primary transition-colors font-body-main resize-none rounded-none"
                   />
                 </div>
+
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-800 p-4 font-body-main text-sm">
+                    {error}
+                  </div>
+                )}
                 
                 {submitted && (
                   <div className="bg-green-50 border border-green-200 text-green-800 p-4 font-body-main text-sm">
@@ -157,11 +187,12 @@ export const Contact = () => {
                 )}
 
                 <div className="mt-4">
-                  <button 
+                  <button
                     type="submit"
-                    className="w-full md:w-auto bg-on-surface text-white px-12 py-4 font-label-mono text-label-mono uppercase tracking-[0.2em] font-bold hover:bg-[#2563EB] transition-colors duration-200 rounded-none"
+                    disabled={isSubmitting}
+                    className="w-full md:w-auto bg-on-surface text-white px-12 py-4 font-label-mono text-label-mono uppercase tracking-[0.2em] font-bold hover:bg-[#2563EB] disabled:bg-opacity-50 disabled:cursor-not-allowed transition-colors duration-200 rounded-none"
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
               </form>
@@ -175,9 +206,9 @@ export const Contact = () => {
         <div className="grid grid-cols-12 gap-gutter items-center">
           <div className="col-span-12 md:col-span-8">
             <div className="h-[400px] w-full bg-surface-container overflow-hidden border border-outline-variant">
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0GJ-w6AHNiDkLjruNPNWRCyzldaWlxLk1MfOurvfqbMBlOYJwHx23lIM1ynTlZ6BnIOWmh9-sHmhLeJ2fAaLKPJZJfvGDNvEb_pu3DohTGD44lgxDVO-nJ1zOp_WNaSqc4mhw4NeACK5rigPUsLOT9uzlnTpbJpF14uLHmrkIY4utn_rS9uG9MFlxIDzKcYFkc407KM_VO4KM1kSu8bb9tzXl001qq35TeBL1LKi5A5hnHyMsvQ7F2iA0rIUvPwdbStv6rEInZbM" 
-                alt="Modern Studio Space" 
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0GJ-w6AHNiDkLjruNPNWRCyzldaWlxLk1MfOurvfqbMBlOYJwHx23lIM1ynTlZ6BnIOWmh9-sHmhLeJ2fAaLKPJZJfvGDNvEb_pu3DohTGD44lgxDVO-nJ1zOp_WNaSqc4mhw4NeACK5rigPUsLOT9uzlnTpbJpF14uLHmrkIY4utn_rS9uG9MFlxIDzKcYFkc407KM_VO4KM1kSu8bb9tzXl001qq35TeBL1LKi5A5hnHyMsvQ7F2iA0rIUvPwdbStv6rEInZbM"
+                alt="Modern Studio Space"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
