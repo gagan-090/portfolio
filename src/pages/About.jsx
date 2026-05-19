@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import nanoBananaDev from '../assets/nano_banana_dev.png';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -83,8 +84,8 @@ export const About = () => {
           <motion.div variants={fadeUp} className="md:col-span-5 flex items-center justify-center">
             <div className="relative w-full aspect-[4/5] border border-outline-variant overflow-hidden bg-surface-container">
               <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4oPFL_4kSvywWqE5WA6nt8UMdn4FllEnZSjZPnt_AUxioG1kn-jVSKdFe6sKxO2g7qMtSQXurMeV8ndXKSP0UjOjgUOe03IlD5X1sKm0Eqib1EGe4FizBx4-N7HhTAPMf-sKv32NN5T8_0bTg3t0mNu5wAP5o7DXMt5-5LVZEBzkWvO9tFXZjv-O_mBf07z9IyQXUoHNB5uJtb4brecwRLTcvADrZVfjNyf-_gqntKVE0-zSAwYEtPIK057ihhIIlj5Wp3EOLvSw" 
-                alt="Gagan Shukla" 
+                src={nanoBananaDev} 
+                alt="Gagan Shukla - App Development Workspace with Nano Banana Mascot" 
                 className="absolute inset-0 w-full h-full object-cover" 
               />
               <div className="absolute inset-0 border-[16px] border-white pointer-events-none shadow-inner"></div>
