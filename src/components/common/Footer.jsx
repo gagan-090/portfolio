@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="max-w-[1200px] mx-auto px-gutter py-stack-lg flex flex-col md:flex-row justify-between items-start gap-stack-md">
         <div>
           <div className="font-headline-md text-headline-md font-bold text-on-surface mb-2">GS</div>
-          <p className="font-label-mono text-label-mono text-on-surface-variant max-w-[300px]">© 2024 GAGAN SHUKLA. BUILT WITH PRECISION.</p>
+          <p className="font-label-mono text-label-mono text-on-surface-variant max-w-[300px]">© 2026 GAGAN SHUKLA. BUILT WITH PRECISION.</p>
         </div>
         <div className="flex flex-col gap-4">
           <span className="font-label-mono text-[11px] text-on-surface-variant uppercase tracking-widest">Navigation</span>
