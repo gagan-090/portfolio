@@ -100,7 +100,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="relative min-h-screen bg-white text-on-surface">
+      <div className="relative min-h-screen bg-white text-on-surface overflow-x-hidden w-full">
         <CustomCursor />
         <Navbar />
         <ScrollProgress />

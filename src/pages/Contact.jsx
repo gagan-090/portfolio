@@ -61,10 +61,10 @@ export const Contact = () => {
           variants={fadeUp}
         >
           <div className="col-span-12 md:col-span-2">
-            <span className="font-display-lg text-[64px] md:text-display-lg text-outline-variant opacity-30">05</span>
+            <span className="font-display-lg text-[48px] md:text-display-lg text-outline-variant opacity-30">05</span>
           </div>
           <div className="col-span-12 md:col-span-10">
-            <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-none tracking-tighter">
+            <h1 className="font-display-lg-mobile md:font-display-lg text-[32px] sm:text-[44px] md:text-display-lg text-on-surface leading-none tracking-tighter">
               Let's build<br />something great.
             </h1>
           </div>
