@@ -12,7 +12,7 @@ export const experienceData = [
       'Optimizing real-time synchronization between local SQLite databases and cloud endpoints to ensure zero data loss in low-connectivity areas.',
       'Leading the transition of legacy codebase to a modern Clean Architecture pattern with Riverpod for state management.'
     ],
-    image: truckmitrHero
+
   },
   {
     id: 'easyian',

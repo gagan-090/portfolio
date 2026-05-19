@@ -23,8 +23,8 @@ export const FeaturedProject = ({ project }) => {
           ))}
         </div>
         <div>
-          <Link 
-            to={['truckmitr', 'hrms-crm', 'aura', 'tmconnect', 'hashkart'].includes(project.id) ? `/work/${project.id}` : project.link} 
+          <Link
+            to={['truckmitr', 'hrms-crm', 'aura', 'TMConnact', 'hashkart'].includes(project.id) ? `/work/${project.id}` : project.link}
             className="inline-flex items-center gap-2 font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:text-[#2563EB] transition-colors group/btn"
           >
             Explore Work
@@ -32,11 +32,11 @@ export const FeaturedProject = ({ project }) => {
           </Link>
         </div>
       </div>
-      
+
       <div className="md:col-span-6 overflow-hidden border border-outline-variant group-hover:border-on-surface transition-colors duration-300">
         <div className="h-[300px] md:h-[400px] w-full bg-surface-container overflow-hidden flex items-center justify-center p-4">
-          <motion.img 
-            src={project.image} 
+          <motion.img
+            src={project.image}
             alt={project.title}
             className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-[transform,filter] duration-500 ease-out"
             whileHover={{ scale: 1.05 }}

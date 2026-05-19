@@ -1,13 +1,37 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { skillsData, coreFocusCategories, toolsData } from '../data/skills';
 import { StatCard } from '../components/ui/StatCard';
-import { fadeUp } from '../utils/animations';
+import { fadeUp, staggerContainer } from '../utils/animations';
+
+const SkillCategoryCard = ({ categoryName, skills }) => {
+  return (
+    <div className="border border-outline-variant p-8 bg-white flex flex-col justify-between hover:border-on-surface transition-colors duration-300 relative overflow-hidden">
+      <div>
+        <div className="flex justify-between items-center mb-8 pb-4 border-b border-outline-variant">
+          <h3 className="font-headline-md text-xl font-bold tracking-tight text-on-surface uppercase">
+            {categoryName}
+          </h3>
+          <span className="font-label-mono text-[10px] text-primary border border-outline-variant px-3 py-1">
+            {skills.length} Areas
+          </span>
+        </div>
+        <div className="space-y-8">
+          {skills.map((skill, idx) => (
+            <SkillBar key={idx} skill={skill} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const Skills = () => {
+  const categories = ['Mobile Development', 'Frontend Systems', 'Cloud & Database'];
+
   return (
     <div className="w-full bg-white select-none">
-      {/* Header */}
+      {/* Header Section */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div 
           className="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mt-12 md:mt-20"
@@ -20,62 +44,82 @@ export const Skills = () => {
             <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">Skills</h1>
           </div>
           <div className="flex flex-wrap gap-8 md:gap-16 mb-2">
-            <StatCard label="Methodology" value="Clean Architecture" />
-            <StatCard label="Stack" value="Cross-Platform" />
+            <StatCard label="Core Approach" value="Clean Architecture" />
+            <StatCard label="Primary Stack" value="Cross-Platform" />
           </div>
         </motion.div>
       </section>
 
-      {/* Capabilities Section */}
+      {/* Core Capability Pillars */}
       <section className="max-w-[1200px] mx-auto px-gutter py-section-padding border-b border-outline-variant">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          {/* Left Column: Focus Categories */}
-          <div className="md:col-span-5">
-            <span className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest block mb-8">
-              01 / CORE FOCUS
-            </span>
-            <div className="space-y-6">
-              {coreFocusCategories.map((category, idx) => (
-                <div key={idx} className="border border-outline-variant p-6 hover:border-on-surface transition-colors duration-300">
-                  <span className="font-label-mono text-[10px] text-primary uppercase tracking-widest block mb-2">
-                    Focus Area 0{idx + 1}
-                  </span>
-                  <h3 className="font-headline-md text-xl font-bold text-on-surface">
-                    {category}
-                  </h3>
-                </div>
-              ))}
+        <div className="mb-12">
+          <span className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest block">
+            01 / CAPABILITY PILLARS
+          </span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {coreFocusCategories.map((pillar, idx) => (
+            <div key={idx} className="border border-outline-variant p-6 hover:border-on-surface transition-all duration-300 bg-surface-container-lowest flex flex-col justify-between group">
+              <div>
+                <span className="material-symbols-outlined text-[36px] text-primary mb-6 block group-hover:scale-110 transition-transform duration-300">
+                  {pillar.icon}
+                </span>
+                <h3 className="font-headline-md text-lg font-bold text-on-surface mb-3">
+                  {pillar.title}
+                </h3>
+                <p className="font-body-main text-xs text-on-surface-variant leading-relaxed">
+                  {pillar.description}
+                </p>
+              </div>
+              <span className="font-label-mono text-[9px] text-white/0 group-hover:text-primary transition-colors duration-300 block mt-6 uppercase tracking-widest">
+                Pillar 0{idx + 1}
+              </span>
             </div>
-          </div>
+          ))}
+        </div>
+      </section>
 
-          {/* Right Column: Skill Bars */}
-          <div className="md:col-span-7">
-            <span className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest block mb-8">
-              02 / PROFICIENCY
+      {/* Structured Skills Grid */}
+      <section className="max-w-[1200px] mx-auto px-gutter py-section-padding border-b border-outline-variant bg-[#FDFDFD]">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest block mb-2">
+              02 / TECHNICAL PROFICIENCY
             </span>
-            <div className="space-y-8">
-              {skillsData.map((skill, idx) => (
-                <SkillBar key={idx} skill={skill} />
-              ))}
-            </div>
+            <p className="font-subhead-italic text-sm italic text-on-surface-variant">Surgically balanced engineering capability metrics across key stacks</p>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {categories.map((category) => (
+            <SkillCategoryCard 
+              key={category}
+              categoryName={category}
+              skills={skillsData.filter(s => s.category === category)}
+            />
+          ))}
         </div>
       </section>
 
       {/* Environment Tools */}
       <section className="max-w-[1200px] mx-auto px-gutter py-section-padding">
         <span className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest block mb-12">
-          03 / DEVELOPMENT TOOLS
+          03 / DEVELOPMENT TOOLS & PLATFORMS
         </span>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-7 gap-4">
           {toolsData.map((tool, idx) => (
-            <div key={idx} className="border border-outline-variant p-8 flex flex-col items-center text-center justify-center hover:border-on-surface transition-colors duration-300 group">
-              <span className="material-symbols-outlined text-[40px] text-[#2563EB] group-hover:scale-110 transition-transform duration-300 mb-4 block">
+            <div key={idx} className="border border-outline-variant p-6 flex flex-col items-center text-center justify-between hover:border-on-surface transition-colors duration-300 group bg-white">
+              <span className="material-symbols-outlined text-[32px] text-[#2563EB] group-hover:scale-110 transition-transform duration-300 mb-4 block">
                 {tool.icon}
               </span>
-              <h4 className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface">
-                {tool.name}
-              </h4>
+              <div>
+                <h4 className="font-label-mono text-[10px] uppercase tracking-wider text-on-surface font-bold mb-1">
+                  {tool.name}
+                </h4>
+                <span className="font-body-main text-[8px] text-on-surface-variant block uppercase tracking-widest">
+                  {tool.desc}
+                </span>
+              </div>
             </div>
           ))}
         </div>
@@ -84,22 +128,26 @@ export const Skills = () => {
   );
 };
 
-// Inner helper component to isolate observer states cleanly
+// Skill Bar Component with animation and details subtext
 const SkillBar = ({ skill }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <div ref={ref} className="flex flex-col select-none">
-      <div className="flex justify-between items-center mb-2">
-        <span className="font-headline-md text-lg font-bold text-on-surface">
-          {skill.name}
-        </span>
-        <span className="font-label-mono text-label-mono text-primary font-bold">
+      <div className="flex justify-between items-end mb-2">
+        <div>
+          <span className="font-body-main font-bold text-[14px] text-on-surface block">
+            {skill.name}
+          </span>
+        </div>
+        <span className="font-label-mono text-[10px] text-primary font-bold">
           {skill.level}%
         </span>
       </div>
-      <div className="w-full h-2 bg-secondary-container border border-outline-variant relative">
+      
+      {/* Visual dynamic progress bar */}
+      <div className="w-full h-1.5 bg-neutral-100 border border-outline-variant relative overflow-hidden mb-2">
         <motion.div 
           className="h-full bg-on-surface"
           initial={{ width: "0%" }}
@@ -107,7 +155,13 @@ const SkillBar = ({ skill }) => {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         />
       </div>
+      
+      {/* Clear description detailing scope of competency */}
+      <p className="text-[10px] text-on-surface-variant leading-relaxed">
+        {skill.desc}
+      </p>
     </div>
   );
 };
+
 export default Skills;
