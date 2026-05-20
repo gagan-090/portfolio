@@ -15,6 +15,7 @@ export const projectsData = [
     longDescription: 'AURA is a beautifully crafted Flutter application that lets users discover, plan, and book travel destinations, local social events, bespoke couple activities, and curated date itineraries with real-time slot booking.',
     image: auraHero,
     link: '#',
+    github: 'https://github.com/gagan-090/aura.git',
     featured: true
   },
   {
@@ -37,6 +38,7 @@ export const projectsData = [
     longDescription: 'HashKart features high-resolution image rendering galleries, seamless stripe checkout flows, and a blazing fast Rust-based analytics dashboard.',
     image: hashkartHero,
     link: '#',
+    github: 'https://github.com/gagan-090/HashKart_Main.git',
     featured: false
   },
   {
@@ -70,6 +72,7 @@ export const projectsData = [
     longDescription: 'A bespoke enterprise platform consolidating HR tasks, employee reviews, and customer management into one elegant, modern UI. Scaled to support over 50 corporate clients.',
     image: hrmsHero,
     link: '#',
+    github: 'https://github.com/gagan-090/HRMS.git',
     featured: false
   }
 ];

@@ -22,7 +22,7 @@ export const FeaturedProject = ({ project }) => {
             </span>
           ))}
         </div>
-        <div>
+        <div className="flex flex-wrap items-center gap-6">
           <Link
             to={['truckmitr', 'hrms-crm', 'aura', 'TMConnact', 'hashkart'].includes(project.id) ? `/work/${project.id}` : project.link}
             className="inline-flex items-center gap-2 font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:text-[#2563EB] transition-colors group/btn"
@@ -30,6 +30,17 @@ export const FeaturedProject = ({ project }) => {
             Explore Work
             <span className="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform duration-300">arrow_forward</span>
           </Link>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:text-primary transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">code</span>
+              GitHub
+            </a>
+          )}
         </div>
       </div>
 

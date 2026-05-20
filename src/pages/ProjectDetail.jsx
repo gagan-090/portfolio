@@ -34,30 +34,23 @@ const fadeUp = {
 
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
+/* ─── Shared: Tech Stack Hero Banner ─── */
 const TechStackHero = ({ type }) => {
   const isFlutter = type.toUpperCase() === 'FLUTTER';
-
   return (
     <div className="relative w-full aspect-[16/9] bg-[#0A0A0A] border border-outline-variant flex flex-col items-center justify-center p-8 overflow-hidden group select-none">
-      {/* Background radial highlight */}
-      <div className={`absolute w-72 h-72 rounded-full blur-[100px] opacity-15 pointer-events-none transition-transform duration-1000 group-hover:scale-150 ${isFlutter ? 'bg-[#0284C7]' : 'bg-[#0891B2]'}`}></div>
-
+      <div className={`absolute w-72 h-72 rounded-full blur-[100px] opacity-15 pointer-events-none transition-transform duration-1000 group-hover:scale-150 ${isFlutter ? 'bg-[#0284C7]' : 'bg-[#0891B2]'}`} />
       {isFlutter ? (
-        <svg viewBox="0 0 2000 2000" className="w-24 h-24 filter drop-shadow-[0_0_20px_rgba(2,132,199,0.3)] transition-transform duration-500 group-hover:scale-110">
+        <svg viewBox="0 0 2000 2000" className="w-16 h-16 md:w-24 md:h-24 filter drop-shadow-[0_0_20px_rgba(2,132,199,0.3)] transition-transform duration-500 group-hover:scale-110">
           <path fill="#47C5FB" d="M1411.3 759.2L915.2 263.1H0l683 683.1L0 1629.3h915.2l496.1-496.1 496.1-496.1-496.1 122.1z" />
           <path fill="#02569B" d="M1411.3 759.2l-496.1 496.1 496.1 496.1H1907l-495.7-496.1 495.7-496.1h-495.7z" />
           <path fill="#0175C2" d="M915.2 1255.3L419.1 1751.4H0l683-683.1 232.2 187z" />
         </svg>
       ) : (
-        <svg viewBox="-11.5 -10.23174 23 20.46348" className="w-24 h-24 text-[#0891B2] filter drop-shadow-[0_0_20px_rgba(8,145,178,0.3)] transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor">
+        <svg viewBox="-11.5 -10.23174 23 20.46348" className="w-16 h-16 md:w-24 md:h-24 text-[#0891B2] filter drop-shadow-[0_0_20px_rgba(8,145,178,0.3)] transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor">
           <circle cx="0" cy="0" r="2.05" fill="#0891B2" stroke="none" />
           <g stroke="#0891B2" strokeWidth="0.8">
             <ellipse rx="11" ry="4.2" />
@@ -66,561 +59,357 @@ const TechStackHero = ({ type }) => {
           </g>
         </svg>
       )}
-
-      <span className="font-label-mono text-[10px] text-white/40 uppercase tracking-[0.25em] mt-8 block group-hover:text-white/70 transition-colors duration-300">
+      <span className="font-label-mono text-[10px] text-white/40 uppercase tracking-[0.25em] mt-6 md:mt-8 block group-hover:text-white/70 transition-colors duration-300 text-center">
         Enterprise Production Stack // {type.toUpperCase()}
       </span>
-      <div className="absolute inset-0 border-[16px] border-white/5 pointer-events-none"></div>
+      <div className="absolute inset-0 border-[16px] border-white/5 pointer-events-none" />
     </div>
   );
 };
 
+/* ─── Shared: Phone Mockup ─── */
+const PhoneMockup = ({ src, alt, label, large = true }) => (
+  <motion.div variants={fadeUp} className="flex flex-col items-center w-full">
+    <div className={`relative ${large ? 'rounded-[32px] border-[6px]' : 'rounded-[24px] border-[5px]'} border-[#0A0A0A] bg-white shadow-2xl overflow-hidden w-full max-w-[200px] sm:max-w-[220px] aspect-[9/18] flex flex-col items-center justify-center`}>
+      {large && (
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-[#0A0A0A] rounded-b-xl z-20 flex items-center justify-center">
+          <div className="w-10 h-0.5 bg-neutral-700 rounded-full" />
+        </div>
+      )}
+      <img loading="lazy" src={src} alt={alt} className="w-full h-full object-cover" />
+    </div>
+    <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center px-2">{label}</span>
+  </motion.div>
+);
+
+/* ─── Shared: Case Study Header ─── */
+const CaseStudyHeader = ({ num, title, subtitle, heroSrc, heroAlt, techType, githubUrl }) => (
+  <header className="max-w-[1200px] mx-auto px-gutter mb-12 md:mb-20">
+    <motion.div variants={fadeUp} className="flex flex-col md:grid md:grid-cols-12 gap-6 md:gap-8 items-end mb-8 md:mb-12 pt-8">
+      <div className="md:col-span-8">
+        <p className="font-label-mono text-label-mono text-primary mb-3 md:mb-4 uppercase tracking-[0.2em]">{num}</p>
+        <h1 className="font-headline-md text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[5rem] font-bold leading-[1.0] md:leading-[0.9] text-on-surface tracking-tighter break-words">
+          {title}
+        </h1>
+      </div>
+      <div className="md:col-span-4 pb-0 md:pb-4 flex flex-col justify-end">
+        <p className="font-body-main text-[15px] md:text-[16px] text-on-surface-variant leading-relaxed mb-4">{subtitle}</p>
+        {githubUrl && (
+          <div>
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-label-mono text-[11px] uppercase tracking-widest text-on-surface hover:text-primary transition-colors border border-outline-variant px-4 py-2 hover:border-primary bg-surface-container"
+            >
+              <span className="material-symbols-outlined text-[16px]">code</span>
+              View on GitHub
+            </a>
+          </div>
+        )}
+      </div>
+    </motion.div>
+    {heroSrc ? (
+      <motion.div variants={fadeUp} className="relative w-full aspect-[16/9] bg-surface-container border border-outline-variant flex items-center justify-center p-4 md:p-8 group overflow-hidden">
+        <img src={heroSrc} alt={heroAlt} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
+        <div className="absolute inset-0 border-[16px] border-white/5 pointer-events-none" />
+      </motion.div>
+    ) : techType ? (
+      <motion.div variants={fadeUp}><TechStackHero type={techType} /></motion.div>
+    ) : null}
+  </header>
+);
+
+/* ─── Shared: Stats Row ─── */
+const StatsRow = ({ stats }) => (
+  <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-8 md:py-12 border-b border-outline-variant">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      {stats.map(({ label, value }) => (
+        <div key={label} className="flex flex-col min-w-0">
+          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-1">{label}</span>
+          <span className="font-body-main font-bold text-on-surface text-sm md:text-base break-words">{value}</span>
+        </div>
+      ))}
+    </div>
+  </motion.div>
+);
+
+/* ─── Shared: Brief Section ─── */
+const BriefSection = ({ heading, lead, body, children }) => (
+  <section className="max-w-[1200px] mx-auto px-gutter py-12 md:py-[80px]">
+    <motion.div variants={fadeUp} className="flex flex-col md:grid md:grid-cols-12 gap-8 md:gap-12">
+      <div className="md:col-span-4">
+        <h2 className="font-headline-md text-2xl md:text-[2.5rem] font-bold text-on-surface leading-tight">{heading}</h2>
+      </div>
+      <div className="md:col-span-8 flex flex-col gap-6 md:gap-8">
+        <p className="font-body-main text-[15px] md:text-[18px] text-on-surface-variant leading-relaxed italic">{lead}</p>
+        {body && (
+          <div className="hairline-b pb-6 md:pb-8">
+            <p className="font-body-main text-base md:text-lg text-on-surface leading-loose">{body}</p>
+          </div>
+        )}
+        {children}
+      </div>
+    </motion.div>
+  </section>
+);
+
+/* ─── Shared: CTA Footer ─── */
+const NextProjectCTA = ({ label, to }) => (
+  <section className="max-w-[1200px] mx-auto px-gutter mb-12 md:mb-20">
+    <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-8 md:p-16 text-center">
+      <p className="font-label-mono text-label-mono mb-4 md:mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
+      <h2 className="font-headline-md text-xl md:text-[2.5rem] font-bold mb-6 md:mb-10 text-white leading-tight">{label}</h2>
+      <Link to={to} className="inline-flex items-center gap-3 font-body-main text-lg md:text-2xl italic hover:text-primary transition-colors text-white">
+        View Case Study <span className="material-symbols-outlined">arrow_forward</span>
+      </Link>
+    </motion.div>
+  </section>
+);
+
+/* ─── Shared: Feature Card Grid ─── */
+const FeatureCards = ({ cards, cols = 3 }) => (
+  <div className={`grid grid-cols-1 ${cols === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-4 md:gap-8`}>
+    {cards.map(({ icon, title, desc }) => (
+      <div key={title} className="p-5 md:p-8 border border-outline-variant bg-surface-container-lowest">
+        <span className="material-symbols-outlined text-primary mb-3 md:mb-4 text-[28px] md:text-[32px] block">{icon}</span>
+        <h3 className="font-body-main font-bold mb-2 text-on-surface text-sm md:text-base">{title}</h3>
+        <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed">{desc}</p>
+      </div>
+    ))}
+  </div>
+);
+
+/* ─── Shared: Interface Showcase Section ─── */
+const InterfaceShowcase = ({ subtitle, phones }) => (
+  <section className="bg-surface-container py-12 md:py-[80px] border-y border-outline-variant">
+    <div className="max-w-[1200px] mx-auto px-gutter">
+      <motion.div variants={fadeUp} className="mb-10 md:mb-16 text-center md:text-left">
+        <h2 className="font-headline-md text-2xl md:text-[2.5rem] font-bold mb-3 md:mb-4 text-on-surface">Interface Showcase</h2>
+        <p className="font-label-mono text-label-mono text-primary uppercase tracking-widest text-[10px] md:text-[13px]">{subtitle}</p>
+      </motion.div>
+      <motion.div variants={staggerContainer} className={`grid grid-cols-2 ${phones.length >= 4 ? 'lg:grid-cols-4' : phones.length === 5 ? 'sm:grid-cols-3 lg:grid-cols-5' : 'sm:grid-cols-2'} gap-4 md:gap-8 justify-items-center`}>
+        {phones.map((p) => (
+          <PhoneMockup key={p.label} {...p} />
+        ))}
+      </motion.div>
+    </div>
+  </section>
+);
+
+/* ─── Shared: Feature + Single Phone layout ─── */
+const FeatureWithPhone = ({ heading, lead, bullets, phoneSrc, phoneAlt, phoneLabel }) => (
+  <section className="max-w-[1200px] mx-auto px-gutter py-12 md:py-[80px]">
+    <motion.div variants={fadeUp} className="flex flex-col md:grid md:grid-cols-12 gap-8 md:gap-8 items-center">
+      <div className="md:col-span-6">
+        <h2 className="font-headline-md text-2xl md:text-[2.5rem] font-bold mb-4 md:mb-6 text-on-surface leading-tight">{heading}</h2>
+        <p className="font-body-main text-[15px] md:text-[18px] mb-6 md:mb-8 text-on-surface-variant italic leading-relaxed">{lead}</p>
+        <div className="space-y-5 md:space-y-8">
+          {bullets.map(({ icon, title, desc }) => (
+            <div key={title} className="flex items-start gap-3 md:gap-4">
+              <span className="material-symbols-outlined text-primary text-[22px] md:text-[28px] flex-shrink-0 mt-0.5">{icon}</span>
+              <div>
+                <h4 className="font-bold text-on-surface text-sm md:text-base mb-1">{title}</h4>
+                <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="md:col-start-8 md:col-span-5 flex flex-col items-center w-full max-w-[240px] mx-auto md:max-w-none">
+        <PhoneMockup src={phoneSrc} alt={phoneAlt} label={phoneLabel} />
+      </div>
+    </motion.div>
+  </section>
+);
+
+/* ════════════════════════════════════════
+   AURA DETAIL
+════════════════════════════════════════ */
 const AuraDetail = () => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
-    {/* Hero Section */}
-    <header className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-end mb-12 pt-8">
-        <div className="col-span-12 md:col-span-8">
-          <p className="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-[0.2em]">Case Study 01</p>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[0.9] text-on-surface">AURA:<br />Experiential Booking</h1>
-        </div>
-        <div className="col-span-12 md:col-span-4 pb-4">
-          <p className="font-subhead-italic text-subhead-italic italic text-on-surface-variant">Seamless travel destination, live social events, and romantic couple date concierge crafted with Flutter.</p>
-        </div>
-      </motion.div>
-      <motion.div variants={fadeUp} className="relative w-full aspect-[16/9] bg-surface-container border border-outline-variant flex items-center justify-center p-8 group overflow-hidden">
-        <img
-          src={auraHero}
-          alt="AURA Lifestyle App Showcase"
-          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 border-[16px] border-white/5 pointer-events-none"></div>
-      </motion.div>
-    </header>
+    <CaseStudyHeader
+      num="Case Study 01"
+      title={"AURA:\nExperiential Booking"}
+      subtitle="Seamless travel destination, live social events, and romantic couple date concierge crafted with Flutter."
+      heroSrc={auraHero}
+      heroAlt="AURA Lifestyle App Showcase"
+      githubUrl="https://github.com/gagan-090/aura.git"
+    />
+    <StatsRow stats={[
+      { label: 'Role', value: 'Flutter Developer' },
+      { label: 'Duration', value: '4 Months' },
+      { label: 'Platforms', value: 'iOS & Android' },
+      { label: 'Key Tech', value: 'Flutter, Riverpod, Maps API' },
+    ]} />
+    <BriefSection
+      heading="The Experience Engine"
+      lead="AURA simplifies lifestyle scheduling by uniting travel, ticketing, and social event discovery under one premium interface."
+      body="Modern lifestyle apps are often fragmented—users must jump between search engines, event listings, and dining platforms. AURA elegantly resolves this by designing a beautiful concierge engine. Users can book exotic tour routes, buy tickets for major local events, schedule custom couple dates, and find creative weekend activities in one unified booking dashboard."
+    >
+      <FeatureCards cols={3} cards={[
+        { icon: 'explore', title: 'Tours & Getaways', desc: 'Seamless slots, travel guides, and route maps for premium local getaways.' },
+        { icon: 'local_activity', title: 'Social Events', desc: 'Live tickets, calendar schedules, and interactive seating selections.' },
+        { icon: 'favorite', title: 'Couple Dates', desc: 'Curated romantic planners, dinner bookings, and creative activity lists.' },
+      ]} />
+    </BriefSection>
 
-    {/* Stats Hairline Row */}
-    <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-12 border-b border-outline-variant">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Role</span>
-          <span className="font-body-main font-bold text-on-surface">Flutter Developer</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Duration</span>
-          <span className="font-body-main font-bold text-on-surface">4 Months</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Platforms</span>
-          <span className="font-body-main font-bold text-on-surface">iOS & Android</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Key Tech</span>
-          <span className="font-body-main font-bold text-on-surface">Flutter, Riverpod, Maps API</span>
-        </div>
-      </div>
-    </motion.div>
+    <InterfaceShowcase
+      subtitle="High-Fidelity App Journey in Custom Device Simulators"
+      phones={[
+        { src: auraLogin, alt: 'AURA Login Interface', label: '1. Auth Portal' },
+        { src: auraHero, alt: 'AURA Home Interface', label: '2. Experience Hub' },
+        { src: auraImg1, alt: 'AURA Destination Discovery', label: '3. Tour Discovery' },
+        { src: auraImg2, alt: 'AURA Date Scheduling', label: '4. Event Details' },
+      ]}
+    />
 
-    {/* Section 1: The Brief */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-12">
-        <div className="col-span-12 md:col-span-4">
-          <h2 className="font-headline-md text-headline-md text-on-surface">The Experience Engine</h2>
-        </div>
-        <div className="col-span-12 md:col-span-8 flex flex-col gap-8">
-          <p className="font-subhead-italic text-subhead-italic text-on-surface-variant leading-relaxed">
-            AURA simplifies lifestyle scheduling by uniting travel, ticketing, and social event discovery under one premium interface.
-          </p>
-          <div className="hairline-b pb-8">
-            <p className="font-body-main text-lg text-on-surface leading-loose">
-              Modern lifestyle apps are often fragmented—users must jump between search engines, event listings, and dining platforms. AURA elegantly resolves this by designing a beautiful concierge engine. Users can book exotic tour routes, buy tickets for major local events, schedule custom couple dates, and find creative weekend activities in one unified booking dashboard.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">explore</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Tours & Getaways</h3>
-              <p className="text-xs text-on-surface-variant">Seamless slots, travel guides, and route maps for premium local getaways.</p>
-            </div>
-            <div className="p-6 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">local_activity</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Social Events</h3>
-              <p className="text-xs text-on-surface-variant">Live tickets, calendar schedules, and interactive seating selections.</p>
-            </div>
-            <div className="p-6 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">favorite</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Couple Dates</h3>
-              <p className="text-xs text-on-surface-variant">Curated romantic planners, dinner bookings, and creative activity lists.</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </section>
+    <FeatureWithPhone
+      heading="Curated Itinerary Flow"
+      lead="High-performance reactive state management synchronizes ticket availability live."
+      bullets={[
+        { icon: 'calendar_month', title: 'Multi-Tier Event Schedules', desc: 'Real-time web integrations feed instant slot locks, group seating numbers, and booking reminders instantly to users.' },
+        { icon: 'map', title: 'Curated Travel & Getaways', desc: 'Custom maps layers display guides, routes, local activities, and recommended stops dynamically compiled by experts.' },
+      ]}
+      phoneSrc={auraImg3}
+      phoneAlt="AURA Couples Planner Interface"
+      phoneLabel="5. Booking Success Portal"
+    />
 
-    {/* Section 2: Mobile Interface Showcase (Simulated Phone Screens) */}
-    <section className="bg-surface-container py-[100px] border-y border-outline-variant">
-      <div className="max-w-[1200px] mx-auto px-gutter">
-        <motion.div variants={fadeUp} className="mb-16 text-center md:text-left">
-          <h2 className="font-headline-md text-headline-md mb-4 text-on-surface">Interface Showcase</h2>
-          <p className="font-label-mono text-label-mono text-primary uppercase tracking-widest">High-Fidelity App Journey in Custom Device Simulators</p>
-        </motion.div>
-
-        <motion.div variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-          {/* Mockup 1: Auth Screen */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={auraLogin} alt="AURA Login Interface" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">1. Auth Portal</span>
-          </motion.div>
-
-          {/* Mockup 2: Home Feed */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={auraHero} alt="AURA Home Interface" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">2. Experience Hub</span>
-          </motion.div>
-
-          {/* Mockup 3: Tour Detail */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={auraImg1} alt="AURA Destination Discovery" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">3. Tour Discovery</span>
-          </motion.div>
-
-          {/* Mockup 4: Date Customization */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={auraImg2} alt="AURA Date Scheduling" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">4. Event Details</span>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-
-    {/* Section 3: Detailed Experience Planning */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-center">
-        <div className="col-span-12 md:col-span-6">
-          <h2 className="font-headline-md text-headline-md mb-6 text-on-surface">Curated Itinerary Flow</h2>
-          <p className="font-subhead-italic text-subhead-italic mb-8 text-on-surface-variant">High-performance reactive state management synchronizes ticket availability live.</p>
-          <div className="space-y-8">
-            <div className="flex items-start gap-4">
-              <span className="material-symbols-outlined text-primary text-[28px]">calendar_month</span>
-              <div>
-                <h4 className="font-bold text-on-surface text-base mb-1">Multi-Tier Event Schedules</h4>
-                <p className="text-sm text-on-surface-variant">Real-time web integrations feed instant slot locks, group seating numbers, and booking reminders instantly to users.</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <span className="material-symbols-outlined text-primary text-[28px]">map</span>
-              <div>
-                <h4 className="font-bold text-on-surface text-base mb-1">Curated Travel & Getaways</h4>
-                <p className="text-sm text-on-surface-variant">Custom maps layers display guides, routes, local activities, and recommended stops dynamically compiled by experts.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-12 md:col-start-8 md:col-span-5 flex flex-col items-center">
-          <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-              <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-            </div>
-            <img loading="lazy" src={auraImg3} alt="AURA Couples Planner Interface" className="w-full h-full object-contain" />
-          </div>
-          <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">5. Booking Success Portal</span>
-        </div>
-      </motion.div>
-    </section>
-
-    {/* Footer Call to Action */}
-    <section className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-16 text-center">
-        <p className="font-label-mono text-label-mono mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
-        <h2 className="font-headline-md text-headline-md mb-10 text-white">GlowCart: Cosmetics Store</h2>
-        <Link to="/work/glowcart" className="inline-flex items-center gap-4 font-subhead-italic text-2xl italic hover:text-primary transition-colors text-white">
-          View Case Study <span className="material-symbols-outlined text-white">arrow_forward</span>
-        </Link>
-      </motion.div>
-    </section>
+    <NextProjectCTA label="GlowCart: Cosmetics Store" to="/work/glowcart" />
   </motion.div>
 );
 
+/* ════════════════════════════════════════
+   GLOWCART DETAIL
+════════════════════════════════════════ */
 const GlowCartDetail = () => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
-    {/* Hero Section */}
-    <header className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-end mb-12 pt-8">
-        <div className="col-span-12 md:col-span-8">
-          <p className="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-[0.2em]">Case Study 02</p>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[0.9] text-on-surface">GlowCart:<br />Online Cosmetics App</h1>
-        </div>
-        <div className="col-span-12 md:col-span-4 pb-4">
-          <p className="font-subhead-italic text-subhead-italic italic text-on-surface-variant">A custom, premium online cosmetic product e-commerce app built from scratch in Flutter.</p>
-        </div>
-      </motion.div>
-      <motion.div variants={fadeUp} className="relative w-full aspect-[16/9] bg-surface-container border border-outline-variant flex items-center justify-center p-8 group overflow-hidden">
-        <img
-          src={glowcartHero}
-          alt="GlowCart Hero Showcase"
-          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 border-[16px] border-white/5 pointer-events-none"></div>
-      </motion.div>
-    </header>
+    <CaseStudyHeader
+      num="Case Study 02"
+      title={"GlowCart:\nOnline Cosmetics App"}
+      subtitle="A custom, premium online cosmetic product e-commerce app built from scratch in Flutter."
+      heroSrc={glowcartHero}
+      heroAlt="GlowCart Hero Showcase"
+    />
+    <StatsRow stats={[
+      { label: 'Role', value: 'Creator & Lead Architect' },
+      { label: 'Duration', value: '3 Months' },
+      { label: 'Platform', value: 'iOS & Android' },
+      { label: 'Key Tech', value: 'Flutter, Riverpod, SQLite' },
+    ]} />
+    <BriefSection
+      heading="The Cosmetic Shop Experience"
+      lead="GlowCart redefines cosmetics shopping with visual richness, pre-cached product listings, and an extremely responsive shopping bag interface."
+      body="E-commerce platforms for beauty products must look and feel exceptionally high-end. High resolution rendering, accurate product textures, and lag-free category filters are mandatory to win buyer trust. GlowCart addresses this with an optimized Flutter catalog framework, allowing quick item previews, interactive beauty blogs, fluid animations, and a seamless local checkout database that functions offline."
+    >
+      <FeatureCards cols={2} cards={[
+        { icon: 'shopping_bag', title: 'Premium Catalog Layouts', desc: 'Carefully arranged grid displays tailored to highlight colors, skin routines, and makeup variations.' },
+        { icon: 'favorite_border', title: 'Interactive Skincare Routines', desc: 'Allows users to curate customized skincare routines and add all steps to the checkout cart with one click.' },
+      ]} />
+    </BriefSection>
 
-    {/* Stats Hairline Row */}
-    <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-12 border-b border-outline-variant">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Role</span>
-          <span className="font-body-main font-bold text-on-surface">Creator & Lead Architect</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Duration</span>
-          <span className="font-body-main font-bold text-on-surface">3 Months</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Platform</span>
-          <span className="font-body-main font-bold text-on-surface">iOS & Android</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Key Tech</span>
-          <span className="font-body-main font-bold text-on-surface">Flutter, Riverpod, SQLite</span>
-        </div>
-      </div>
-    </motion.div>
+    <InterfaceShowcase
+      subtitle="GlowCart High-Fidelity App Showcase"
+      phones={[
+        { src: glowcartImg1, alt: 'GlowCart Screen 1', label: '1. Welcome splash' },
+        { src: glowcartImg2, alt: 'GlowCart Screen 2', label: '2. Product list' },
+        { src: glowcartImg3, alt: 'GlowCart Screen 3', label: '3. Product detail' },
+        { src: glowcartImg4, alt: 'GlowCart Screen 4', label: '4. Shopping cart' },
+        { src: glowcartImg5, alt: 'GlowCart Screen 5', label: '5. Profile' },
+      ]}
+    />
 
-    {/* Section 1: The Brief */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-12">
-        <div className="col-span-12 md:col-span-4">
-          <h2 className="font-headline-md text-headline-md text-on-surface">The Cosmetic Shop Experience</h2>
-        </div>
-        <div className="col-span-12 md:col-span-8 flex flex-col gap-8">
-          <p className="font-subhead-italic text-subhead-italic text-on-surface-variant leading-relaxed">
-            GlowCart redefines cosmetics shopping with visual richness, pre-cached product listings, and an extremely responsive shopping bag interface.
-          </p>
-          <div className="hairline-b pb-8">
-            <p className="font-body-main text-lg text-on-surface leading-loose">
-              E-commerce platforms for beauty products must look and feel exceptionally high-end. High resolution rendering, accurate product textures, and lag-free category filters are mandatory to win buyer trust. GlowCart addresses this with an optimized Flutter catalog framework, allowing quick item previews, interactive beauty blogs, fluid animations, and a seamless local checkout database that functions offline.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-8 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">shopping_bag</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Premium Catalog Layouts</h3>
-              <p className="text-sm text-on-surface-variant">Carefully arranged grid displays tailored to highlight colors, skin routines, and makeup variations.</p>
-            </div>
-            <div className="p-8 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">favorite_border</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Interactive Skincare Routines</h3>
-              <p className="text-sm text-on-surface-variant">Allows users to curate customized skincare routines and add all steps to the checkout cart with one click.</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </section>
-
-    {/* Section 2: Mobile Interface Showcase (Simulated Phone Screens) */}
-    <section className="bg-surface-container py-[100px] border-y border-outline-variant">
-      <div className="max-w-[1200px] mx-auto px-gutter">
-        <motion.div variants={fadeUp} className="mb-16 text-center md:text-left">
-          <h2 className="font-headline-md text-headline-md mb-4 text-on-surface">Interface Showcase</h2>
-          <p className="font-label-mono text-label-mono text-primary uppercase tracking-widest">GlowCart High-Fidelity App Showcase</p>
-        </motion.div>
-
-        <motion.div variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 justify-items-center">
-          {/* Mockup 1 */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img loading="lazy" src={glowcartImg1} alt="GlowCart Screen 1" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">1. Welcome splash</span>
-          </motion.div>
-
-          {/* Mockup 2 */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img loading="lazy" src={glowcartImg2} alt="GlowCart Screen 2" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">2. Product list</span>
-          </motion.div>
-
-          {/* Mockup 3 */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img loading="lazy" src={glowcartImg3} alt="GlowCart Screen 3" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">3. Product detail</span>
-          </motion.div>
-
-          {/* Mockup 4 */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img loading="lazy" src={glowcartImg4} alt="GlowCart Screen 4" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">4. Shopping cart</span>
-          </motion.div>
-
-          {/* Mockup 5 */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img loading="lazy" src={glowcartImg5} alt="GlowCart Screen 5" className="w-full h-full object-cover" />
-            </div>
-            <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">5. Profile</span>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-
-    {/* Footer Call to Action */}
-    <section className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-16 text-center">
-        <p className="font-label-mono text-label-mono mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
-        <h2 className="font-headline-md text-headline-md mb-10 text-white">HashKart: Flutter E-Commerce</h2>
-        <Link to="/work/hashkart" className="inline-flex items-center gap-4 font-subhead-italic text-2xl italic hover:text-primary transition-colors text-white">
-          View Case Study <span className="material-symbols-outlined text-white">arrow_forward</span>
-        </Link>
-      </motion.div>
-    </section>
+    <NextProjectCTA label="HashKart: Flutter E-Commerce" to="/work/hashkart" />
   </motion.div>
 );
 
+/* ════════════════════════════════════════
+   HASHKART DETAIL
+════════════════════════════════════════ */
 const HashKartDetail = () => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
-    {/* Hero Section */}
-    <header className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-end mb-12 pt-8">
-        <div className="col-span-12 md:col-span-8">
-          <p className="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-[0.2em]">Case Study 03</p>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[0.9] text-on-surface">HashKart:<br />E-Commerce Solution</h1>
-        </div>
-        <div className="col-span-12 md:col-span-4 pb-4">
-          <p className="font-subhead-italic text-subhead-italic italic text-on-surface-variant">High-performance e-commerce engine with Stripe and a reactive Rust-based backend analytics core.</p>
-        </div>
-      </motion.div>
-      <motion.div variants={fadeUp} className="relative w-full aspect-[16/9] bg-surface-container border border-outline-variant flex items-center justify-center p-8 group overflow-hidden">
-        <img
-          src={hashkartHero}
-          alt="HashKart Showcase Mockup"
-          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 border-[16px] border-white/5 pointer-events-none"></div>
-      </motion.div>
-    </header>
+    <CaseStudyHeader
+      num="Case Study 03"
+      title={"HashKart:\nE-Commerce Solution"}
+      subtitle="High-performance e-commerce engine with Stripe and a reactive Rust-based backend analytics core."
+      heroSrc={hashkartHero}
+      heroAlt="HashKart Showcase Mockup"
+      githubUrl="https://github.com/gagan-090/HashKart_Main.git"
+    />
+    <StatsRow stats={[
+      { label: 'Role', value: 'Lead Mobile Architect' },
+      { label: 'Duration', value: '4 Months' },
+      { label: 'Platforms', value: 'iOS & Android' },
+      { label: 'Key Tech', value: 'Flutter, Rust, Stripe SDK' },
+    ]} />
+    <BriefSection
+      heading="Full-Stack E-Commerce Engine"
+      lead="HashKart was built to deliver lightning-fast item browsing and instant Stripe transactions for millions of retail buyers."
+      body="Modern digital shoppers expect seamless rendering and immediate checkout confirmation. HashKart fulfills this expectation through a high-performance rendering stack. It supports real-time multi-resolution image rendering galleries, seamless checkout configurations via Stripe API integrations, and robust real-time synchronization with a blazing fast Rust-based analytics inventory backend."
+    />
 
-    {/* Stats Hairline Row */}
-    <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-12 border-b border-outline-variant">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Role</span>
-          <span className="font-body-main font-bold text-on-surface">Lead Mobile Architect</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Duration</span>
-          <span className="font-body-main font-bold text-on-surface">4 Months</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Platforms</span>
-          <span className="font-body-main font-bold text-on-surface">iOS & Android</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Key Tech</span>
-          <span className="font-body-main font-bold text-on-surface">Flutter, Rust, Stripe SDK</span>
-        </div>
-      </div>
-    </motion.div>
+    <InterfaceShowcase
+      subtitle="High-Fidelity App Journey in Custom Device Simulators"
+      phones={[
+        { src: hashkartHero, alt: 'HashKart Product Listing', label: '1. Main Marketplace Feed' },
+        { src: hashkartImg1, alt: 'HashKart Item Carousel', label: '2. Product Showcase' },
+        { src: hashkartImg2, alt: 'HashKart Stripe Checkout', label: '3. Stripe Payment Gateway' },
+        { src: hashkartImg3, alt: 'HashKart Order Confirmation', label: '4. Order Summary Hub' },
+      ]}
+    />
 
-    {/* Section 1: The Brief */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-12">
-        <div className="col-span-12 md:col-span-4">
-          <h2 className="font-headline-md text-headline-md text-on-surface">Full-Stack E-Commerce Engine</h2>
-        </div>
-        <div className="col-span-12 md:col-span-8 flex flex-col gap-8">
-          <p className="font-subhead-italic text-subhead-italic text-on-surface-variant leading-relaxed">
-            HashKart was built to deliver lightning-fast item browsing and instant Stripe transactions for millions of retail buyers.
-          </p>
-          <div className="hairline-b pb-8">
-            <p className="font-body-main text-lg text-on-surface leading-loose">
-              Modern digital shoppers expect seamless rendering and immediate checkout confirmation. HashKart fulfills this expectation through a high-performance rendering stack. It supports real-time multi-resolution image rendering galleries, seamless checkout configurations via Stripe API integrations, and robust real-time synchronization with a blazing fast Rust-based analytics inventory backend.
-            </p>
-          </div>
-        </div>
-      </motion.div>
-    </section>
+    <FeatureWithPhone
+      heading="Scalable Inventory Sync"
+      lead="Engineered to support heavy traffic spikes without latency bottlenecks."
+      bullets={[
+        { icon: 'electric_bolt', title: 'Rust Backend Core', desc: 'Blazing fast inventory checks and instant cart state calculations handled by compiled Rust threads.' },
+      ]}
+      phoneSrc={hashkartImg4}
+      phoneAlt="HashKart Tech Stack"
+      phoneLabel="5. Stock Inventory Sandbox"
+    />
 
-    {/* Section 2: Mobile Interface Showcase (Simulated Phone Screens) */}
-    <section className="bg-surface-container py-[100px] border-y border-outline-variant">
-      <div className="max-w-[1200px] mx-auto px-gutter">
-        <motion.div variants={fadeUp} className="mb-16 text-center md:text-left">
-          <h2 className="font-headline-md text-headline-md mb-4 text-on-surface">Interface Showcase</h2>
-          <p className="font-label-mono text-label-mono text-primary uppercase tracking-widest">High-Fidelity App Journey in Custom Device Simulators</p>
-        </motion.div>
-
-        <motion.div variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-          {/* Mockup 1: Feed Portal */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={hashkartHero} alt="HashKart Product Listing" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">1. Main Marketplace Feed</span>
-          </motion.div>
-
-          {/* Mockup 2: Detail Display */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={hashkartImg1} alt="HashKart Item Carousel" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">2. Product Showcase</span>
-          </motion.div>
-
-          {/* Mockup 3: Secure Payments */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={hashkartImg2} alt="HashKart Stripe Checkout" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">3. Stripe Payment Gateway</span>
-          </motion.div>
-
-          {/* Mockup 4: Active telemetry and orders */}
-          <motion.div variants={fadeUp} className="flex flex-col items-center">
-            <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-                <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-              </div>
-              <img loading="lazy" src={hashkartImg3} alt="HashKart Order Confirmation" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">4. Order Summary Hub</span>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-
-    {/* Section 3: Technical Highlights */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-center">
-        <div className="col-span-12 md:col-span-6">
-          <h2 className="font-headline-md text-headline-md mb-6 text-on-surface">Scalable Inventory Sync</h2>
-          <p className="font-subhead-italic text-subhead-italic mb-8 text-on-surface-variant">Engineered to support heavy traffic spikes without latency bottlenecks.</p>
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <span className="material-symbols-outlined text-primary text-[28px]">electric_bolt</span>
-              <div>
-                <h4 className="font-bold text-on-surface text-base mb-1">Rust Backend Core</h4>
-                <p className="text-sm text-on-surface-variant">Blazing fast inventory checks and instant cart state calculations handled by compiled Rust threads.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-12 md:col-start-8 md:col-span-5 flex flex-col items-center">
-          <div className="relative rounded-[40px] border-8 border-[#0A0A0A] bg-white p-2.5 shadow-2xl overflow-hidden max-w-[280px] h-[550px] flex flex-col items-center justify-center">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
-              <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
-            </div>
-            <img loading="lazy" src={hashkartImg4} alt="HashKart Tech Stack" className="w-full h-full object-contain" />
-          </div>
-          <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">5. Stock Inventory Sandbox</span>
-        </div>
-      </motion.div>
-    </section>
-
-    {/* Footer Call to Action */}
-    <section className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-16 text-center">
-        <p className="font-label-mono text-label-mono mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
-        <h2 className="font-headline-md text-headline-md mb-10 text-white">TruckMitr Logistics Suite</h2>
-        <Link to="/work/truckmitr" className="inline-flex items-center gap-4 font-subhead-italic text-2xl italic hover:text-primary transition-colors text-white">
-          View Case Study <span className="material-symbols-outlined text-white">arrow_forward</span>
-        </Link>
-      </motion.div>
-    </section>
+    <NextProjectCTA label="TruckMitr Logistics Suite" to="/work/truckmitr" />
   </motion.div>
 );
 
+/* ════════════════════════════════════════
+   TRUCKMITR DETAIL
+════════════════════════════════════════ */
 const TruckMitrDetail = () => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
-    {/* Hero Section */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-section-padding">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-stack-lg items-end">
-        <motion.div variants={fadeUp} className="md:col-span-8">
-          <p className="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-[0.2em]">Case Study 04</p>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[0.9] text-on-surface">TruckMitr:<br />Digital Trucking Ecosystem</h1>
-        </motion.div>
-        <div className="col-span-12 md:col-span-4 pb-4">
-          <p className="font-subhead-italic text-subhead-italic italic text-on-surface-variant">Empowering Indian truck drivers and fleet owners through modern digital collaboration.</p>
-        </div>
-      </div>
-
-      <motion.div variants={fadeUp} className="mt-stack-lg">
-        <TechStackHero type="React Native" />
-      </motion.div>
-    </section>
-
-    {/* Stats Hairline Row */}
-    <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-12 border-b border-outline-variant">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Role</span>
-          <span className="font-body-main font-bold text-on-surface">Lead App Developer</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Duration</span>
-          <span className="font-body-main font-bold text-on-surface">5 Months</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Platforms</span>
-          <span className="font-body-main font-bold text-on-surface">Android & Web</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Key Tech</span>
-          <span className="font-body-main font-bold text-on-surface">React Native, Redux, SQLite</span>
-        </div>
-      </div>
-    </motion.div>
+    <CaseStudyHeader
+      num="Case Study 04"
+      title={"TruckMitr:\nDigital Trucking Ecosystem"}
+      subtitle="Empowering Indian truck drivers and fleet owners through modern digital collaboration."
+      techType="React Native"
+    />
+    <StatsRow stats={[
+      { label: 'Role', value: 'Lead App Developer' },
+      { label: 'Duration', value: '5 Months' },
+      { label: 'Platforms', value: 'Android & Web' },
+      { label: 'Key Tech', value: 'React Native, Redux, SQLite' },
+    ]} />
 
     {/* Challenge & Solution Bento */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-1 md:grid-cols-2 pixel-border">
-        <div className="p-stack-lg hairline-r">
-          <div className="mb-stack-md">
-            <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest">01 / The Challenge</span>
+    <section className="max-w-[1200px] mx-auto px-gutter py-12 md:py-[80px]">
+      <motion.div variants={fadeUp} className="flex flex-col md:grid md:grid-cols-2 border border-outline-variant">
+        <div className="p-6 md:p-8 border-b md:border-b-0 md:border-r border-outline-variant">
+          <div className="mb-4 md:mb-6">
+            <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest text-[11px]">01 / The Challenge</span>
           </div>
-          <h2 className="font-headline-md text-headline-md mb-stack-sm text-on-surface">Fragmented Ecosystem</h2>
-          <p className="font-body-main text-body-main text-on-surface-variant leading-relaxed">
+          <h2 className="font-headline-md text-xl md:text-[2.5rem] font-bold mb-3 md:mb-4 text-on-surface leading-tight">Fragmented Ecosystem</h2>
+          <p className="font-body-main text-sm md:text-base text-on-surface-variant leading-relaxed">
             The Indian trucking sector operates largely offline and is heavily reliant on informal networks and brokers. Drivers struggle to find verified jobs, lack professional digital profiles, and fleet operators experience major inefficiencies.
           </p>
         </div>
-        <div className="p-stack-lg bg-[#F5F8FF]">
-          <div className="mb-stack-md">
-            <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest">02 / The Solution</span>
+        <div className="p-6 md:p-8 bg-[#F5F8FF]">
+          <div className="mb-4 md:mb-6">
+            <span className="font-label-mono text-label-mono text-primary uppercase tracking-widest text-[11px]">02 / The Solution</span>
           </div>
-          <h2 className="font-headline-md text-headline-md mb-stack-sm text-on-surface">Driver-Centric Platform</h2>
-          <p className="font-body-main text-body-main text-on-surface-variant leading-relaxed mb-stack-md">
+          <h2 className="font-headline-md text-xl md:text-[2.5rem] font-bold mb-3 md:mb-4 text-on-surface leading-tight">Driver-Centric Platform</h2>
+          <p className="font-body-main text-sm md:text-base text-on-surface-variant leading-relaxed">
             We built a comprehensive driver-focused ecosystem. It provides drivers with verified jobs, digital professional identities, training resources, and welfare access, while connecting them directly to transporters and fleet owners.
           </p>
         </div>
@@ -628,214 +417,100 @@ const TruckMitrDetail = () => (
     </section>
 
     {/* Key Features */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[50px] mb-[50px]">
-      <motion.div variants={fadeUp} className="hairline-b pb-stack-sm mb-stack-lg">
-        <h2 className="font-headline-md text-headline-md text-on-surface">Core Platform Goals</h2>
+    <section className="max-w-[1200px] mx-auto px-gutter pb-12 md:pb-[60px]">
+      <motion.div variants={fadeUp} className="hairline-b pb-4 mb-8 md:mb-10">
+        <h2 className="font-headline-md text-2xl md:text-[2.5rem] font-bold text-on-surface leading-tight">Core Platform Goals</h2>
       </motion.div>
-      <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <motion.div variants={fadeUp} className="p-6 border border-outline-variant bg-surface-container-lowest">
-          <span className="material-symbols-outlined text-primary mb-4 text-[40px]">badge</span>
-          <h3 className="font-subhead-italic text-2xl italic mb-2 text-on-surface">Digital Identity</h3>
-          <p className="text-sm text-on-surface-variant">Helping truck drivers build verified professional digital profiles to showcase experience and secure trusted opportunities.</p>
-        </motion.div>
-        <motion.div variants={fadeUp} className="p-6 border border-outline-variant bg-surface-container-lowest">
-          <span className="material-symbols-outlined text-primary mb-4 text-[40px]">handshake</span>
-          <h3 className="font-subhead-italic text-2xl italic mb-2 text-on-surface">Broker-Free Jobs</h3>
-          <p className="text-sm text-on-surface-variant">Connecting verified drivers directly with transporters and operators, increasing transparency and reducing reliance on brokers.</p>
-        </motion.div>
-        <motion.div variants={fadeUp} className="p-6 border border-outline-variant bg-surface-container-lowest">
-          <span className="material-symbols-outlined text-primary mb-4 text-[40px]">school</span>
-          <h3 className="font-subhead-italic text-2xl italic mb-2 text-on-surface">Training & Safety</h3>
-          <p className="text-sm text-on-surface-variant">Access to driver training programs, safety protocols, and welfare support structures specifically for road operatives.</p>
-        </motion.div>
+      <motion.div variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+        {[
+          { icon: 'badge', title: 'Digital Identity', desc: 'Helping truck drivers build verified professional digital profiles to showcase experience and secure trusted opportunities.' },
+          { icon: 'handshake', title: 'Broker-Free Jobs', desc: 'Connecting verified drivers directly with transporters and operators, increasing transparency and reducing reliance on brokers.' },
+          { icon: 'school', title: 'Training & Safety', desc: 'Access to driver training programs, safety protocols, and welfare support structures specifically for road operatives.' },
+        ].map(({ icon, title, desc }) => (
+          <motion.div key={title} variants={fadeUp} className="p-5 md:p-6 border border-outline-variant bg-surface-container-lowest">
+            <span className="material-symbols-outlined text-primary mb-3 md:mb-4 text-[36px] md:text-[40px] block">{icon}</span>
+            <h3 className="font-body-main font-bold text-base md:text-lg italic mb-2 text-on-surface">{title}</h3>
+            <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed">{desc}</p>
+          </motion.div>
+        ))}
       </motion.div>
     </section>
 
-    {/* Footer Call to Action */}
-    <section className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-16 text-center">
-        <p className="font-label-mono text-label-mono mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
-        <h2 className="font-headline-md text-headline-md mb-10 text-white">TMConnact: Logistics Sync</h2>
-        <Link to="/work/TMConnact" className="inline-flex items-center gap-4 font-subhead-italic text-2xl italic hover:text-primary transition-colors text-white">
-          View Case Study <span className="material-symbols-outlined text-white">arrow_forward</span>
-        </Link>
-      </motion.div>
-    </section>
+    <NextProjectCTA label="TMConnact: Logistics Sync" to="/work/TMConnact" />
   </motion.div>
 );
 
+/* ════════════════════════════════════════
+   TMCONNACT DETAIL
+════════════════════════════════════════ */
 const TMConnactDetail = () => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
-    {/* Hero Section */}
-    <header className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-end mb-12 pt-8">
-        <div className="col-span-12 md:col-span-8">
-          <p className="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-[0.2em]">Case Study 05</p>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[0.9] text-on-surface">TMConnact:<br />Low-Latency Logistics Sync</h1>
-        </div>
-        <div className="col-span-12 md:col-span-4 pb-4">
-          <p className="font-subhead-italic text-subhead-italic italic text-on-surface-variant">Real-time sync bridging system for dispatcher networks over lightweight sockets and SMS.</p>
-        </div>
-      </motion.div>
-      <motion.div variants={fadeUp}>
-        <TechStackHero type="Flutter" />
-      </motion.div>
-    </header>
+    <CaseStudyHeader
+      num="Case Study 05"
+      title={"TMConnact:\nLow-Latency Logistics Sync"}
+      subtitle="Real-time sync bridging system for dispatcher networks over lightweight sockets and SMS."
+      techType="Flutter"
+    />
+    <StatsRow stats={[
+      { label: 'Role', value: 'Lead Flutter Developer' },
+      { label: 'Duration', value: '3 Months' },
+      { label: 'Platforms', value: 'Android, iOS & Web' },
+      { label: 'Key Tech', value: 'Flutter, Riverpod, WebSockets' },
+    ]} />
+    <BriefSection
+      heading="Low Connectivity Bridging"
+      lead="TMConnact acts as a critical link in the transport network, solving live synchronization in extreme off-grid environments."
+      body="Logistics coordinators operating on highways or remote dispatch centers often suffer from severe internet outages. TMConnact addresses this by employing a dual-channel real-time sync structure. The primary synchronization pipeline functions over high-speed lightweight websockets, while the automated standby system operates over encrypted SMS channels to broadcast telemetry even when completely offline."
+    >
+      <FeatureCards cols={2} cards={[
+        { icon: 'sync_alt', title: 'Dynamic Websockets', desc: 'Continuous lightweight client-server telemetry transmission with auto reconnection protocol.' },
+        { icon: 'cell_tower', title: 'SMS Fallback Sync', desc: 'Binary payload compression algorithm enabling data broadcasts over network standard SMS protocols.' },
+      ]} />
+    </BriefSection>
 
-    {/* Stats Hairline Row */}
-    <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-12 border-b border-outline-variant">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Role</span>
-          <span className="font-body-main font-bold text-on-surface">Lead Flutter Developer</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Duration</span>
-          <span className="font-body-main font-bold text-on-surface">3 Months</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Platforms</span>
-          <span className="font-body-main font-bold text-on-surface">Android, iOS & Web</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Key Tech</span>
-          <span className="font-body-main font-bold text-on-surface">Flutter, Riverpod, WebSockets</span>
-        </div>
-      </div>
-    </motion.div>
-
-    {/* Section 1: The Brief */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-12">
-        <div className="col-span-12 md:col-span-4">
-          <h2 className="font-headline-md text-headline-md text-on-surface">Low Connectivity Bridging</h2>
-        </div>
-        <div className="col-span-12 md:col-span-8 flex flex-col gap-8">
-          <p className="font-subhead-italic text-subhead-italic text-on-surface-variant leading-relaxed">
-            TMConnact acts as a critical link in the transport network, solving live synchronization in extreme off-grid environments.
-          </p>
-          <div className="hairline-b pb-8">
-            <p className="font-body-main text-lg text-on-surface leading-loose">
-              Logistics coordinators operating on highways or remote dispatch centers often suffer from severe internet outages. TMConnact addresses this by employing a dual-channel real-time sync structure. The primary synchronization pipeline functions over high-speed lightweight websockets, while the automated standby system operates over encrypted SMS channels to broadcast telemetry even when completely offline.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-8 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">sync_alt</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Dynamic Websockets</h3>
-              <p className="text-sm text-on-surface-variant">Continuous lightweight client-server telemetry transmission with auto reconnection protocol.</p>
-            </div>
-            <div className="p-8 border border-outline-variant bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">cell_tower</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">SMS Fallback Sync</h3>
-              <p className="text-sm text-on-surface-variant">Binary payload compression algorithm enabling data broadcasts over network standard SMS protocols.</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </section>
-
-    {/* Footer Call to Action */}
-    <section className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-16 text-center">
-        <p className="font-label-mono text-label-mono mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
-        <h2 className="font-headline-md text-headline-md mb-10 text-white">HRMS & CRM: Enterprise Suite</h2>
-        <Link to="/work/hrms-crm" className="inline-flex items-center gap-4 font-subhead-italic text-2xl italic hover:text-primary transition-colors text-white">
-          View Case Study <span className="material-symbols-outlined text-white">arrow_forward</span>
-        </Link>
-      </motion.div>
-    </section>
+    <NextProjectCTA label="HRMS & CRM: Enterprise Suite" to="/work/hrms-crm" />
   </motion.div>
 );
 
+/* ════════════════════════════════════════
+   HRMS DETAIL
+════════════════════════════════════════ */
 const HRMSDetail = () => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
-    {/* Hero Section */}
-    <header className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-8 items-end mb-12">
-        <div className="col-span-12 md:col-span-8">
-          <p className="font-label-mono text-label-mono text-primary mb-4 uppercase tracking-[0.2em]">Case Study 06</p>
-          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[0.9] text-on-surface">HRMS & CRM:<br />Enterprise Efficiency</h1>
-        </div>
-        <div className="col-span-12 md:col-span-4 pb-4">
-          <p className="font-subhead-italic text-subhead-italic italic text-on-surface-variant">Streamlining workforce management and sales tracking with React Native & Supabase.</p>
-        </div>
-      </motion.div>
-      <motion.div variants={fadeUp}>
-        <TechStackHero type="React Native" />
-      </motion.div>
-    </header>
+    <CaseStudyHeader
+      num="Case Study 06"
+      title={"HRMS & CRM:\nEnterprise Efficiency"}
+      subtitle="Streamlining workforce management and sales tracking with React Native & Supabase."
+      techType="React Native"
+      githubUrl="https://github.com/gagan-090/HRMS.git"
+    />
+    <StatsRow stats={[
+      { label: 'Role', value: 'Lead React Native Architect' },
+      { label: 'Duration', value: '6 Months' },
+      { label: 'Platform', value: 'Web & Mobile' },
+      { label: 'Tech Suite', value: 'React Native, Supabase, Tailwind' },
+    ]} />
+    <BriefSection
+      heading="The Brief"
+      lead="The objective was to deconstruct fragmented enterprise silos and reconstruct a unified platform for leave, payroll, and attendance management."
+      body='Large-scale enterprises often struggle with "data ghosts"—discrepancies between HR attendance records and payroll systems. We were tasked with building a source of truth that could handle thousands of concurrent requests while maintaining a surgical level of precision in reporting.'
+    >
+      <FeatureCards cols={2} cards={[
+        { icon: 'group_add', title: 'Unified Workforce', desc: 'Centralizing 5,000+ employee records into a single, real-time synchronized database.' },
+        { icon: 'account_balance_wallet', title: 'Automated Payroll', desc: 'Eliminating manual data entry by bridging attendance logs with financial payouts.' },
+      ]} />
+    </BriefSection>
 
-    {/* Stats Hairline Row */}
-    <motion.div variants={fadeUp} className="max-w-[1200px] mx-auto px-gutter py-12 border-b border-outline-variant">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Role</span>
-          <span className="font-body-main font-bold text-on-surface">Lead React Native Architect</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Duration</span>
-          <span className="font-body-main font-bold text-on-surface">6 Months</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Platform</span>
-          <span className="font-body-main font-bold text-on-surface">Web & Mobile</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-label-mono text-[10px] uppercase tracking-tighter text-on-surface-variant mb-2">Tech Suite</span>
-          <span className="font-body-main font-bold text-on-surface">React Native, Supabase, Tailwind</span>
-        </div>
-      </div>
-    </motion.div>
-
-    {/* Section 1: The Brief */}
-    <section className="max-w-[1200px] mx-auto px-gutter py-[100px]">
-      <motion.div variants={fadeUp} className="grid grid-cols-12 gap-12">
-        <div className="col-span-12 md:col-span-4">
-          <h2 className="font-headline-md text-headline-md text-on-surface">The Brief</h2>
-        </div>
-        <div className="col-span-12 md:col-span-8 flex flex-col gap-8">
-          <p className="font-subhead-italic text-subhead-italic text-on-surface-variant leading-relaxed">
-            The objective was to deconstruct fragmented enterprise silos and reconstruct a unified platform for leave, payroll, and attendance management.
-          </p>
-          <div className="hairline-b pb-8">
-            <p className="font-body-main text-lg text-on-surface leading-loose">
-              Large-scale enterprises often struggle with "data ghosts"—discrepancies between HR attendance records and payroll systems. We were tasked with building a source of truth that could handle thousands of concurrent requests while maintaining a surgical level of precision in reporting.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-8 border border-[#E5E5E5] bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">group_add</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Unified Workforce</h3>
-              <p className="text-sm text-on-surface-variant">Centralizing 5,000+ employee records into a single, real-time synchronized database.</p>
-            </div>
-            <div className="p-8 border border-[#E5E5E5] bg-surface-container-lowest">
-              <span className="material-symbols-outlined text-primary mb-4 text-[32px]">account_balance_wallet</span>
-              <h3 className="font-body-main font-bold mb-2 text-on-surface">Automated Payroll</h3>
-              <p className="text-sm text-on-surface-variant">Eliminating manual data entry by bridging attendance logs with financial payouts.</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </section>
-
-    {/* Footer Call to Action */}
-    <section className="max-w-[1200px] mx-auto px-gutter mb-20">
-      <motion.div variants={fadeUp} className="bg-[#0A0A0A] text-white p-16 text-center">
-        <p className="font-label-mono text-label-mono mb-6 uppercase tracking-[0.3em] text-white/50">Next Project</p>
-        <h2 className="font-headline-md text-headline-md mb-10 text-white">AURA: Experiential Concierge</h2>
-        <Link to="/work/aura" className="inline-flex items-center gap-4 font-subhead-italic text-2xl italic hover:text-primary transition-colors text-white">
-          View Case Study <span className="material-symbols-outlined text-white">arrow_forward</span>
-        </Link>
-      </motion.div>
-    </section>
+    <NextProjectCTA label="AURA: Experiential Concierge" to="/work/aura" />
   </motion.div>
 );
 
+/* ════════════════════════════════════════
+   ROUTER
+════════════════════════════════════════ */
 const ProjectDetail = () => {
   const { projectId } = useParams();
 
-  // Validate the route
   const validProjects = ['truckmitr', 'hrms-crm', 'aura', 'TMConnact', 'hashkart', 'glowcart'];
   if (!validProjects.includes(projectId)) {
     return <Navigate to="/work" replace />;
@@ -843,9 +518,8 @@ const ProjectDetail = () => {
 
   const projectInfo = projectsData.find(p => p.id === projectId) || projectsData[0];
 
-  // Scroll to top automatically handled by App.jsx
   return (
-    <div className="pt-8 w-full bg-white select-none">
+    <div className="pt-8 w-full bg-white select-none overflow-x-hidden">
       <SEOHead
         title={`${projectInfo.title} — App Case Study | Gagan Shukla`}
         description={projectInfo.description}
@@ -863,13 +537,13 @@ const ProjectDetail = () => {
         os: 'Android, iOS',
       }} />
       <ProjectSchema project={projectInfo} />
-      
-      {projectId === 'aura' && <AuraDetail />}
-      {projectId === 'glowcart' && <GlowCartDetail />}
-      {projectId === 'hashkart' && <HashKartDetail />}
+
+      {projectId === 'aura'      && <AuraDetail />}
+      {projectId === 'glowcart'  && <GlowCartDetail />}
+      {projectId === 'hashkart'  && <HashKartDetail />}
       {projectId === 'truckmitr' && <TruckMitrDetail />}
       {projectId === 'TMConnact' && <TMConnactDetail />}
-      {projectId === 'hrms-crm' && <HRMSDetail />}
+      {projectId === 'hrms-crm'  && <HRMSDetail />}
     </div>
   );
 };
