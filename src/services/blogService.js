@@ -1,5 +1,24 @@
 import { supabase } from '../supabaseClient';
 
+// Helper: fetch view counts for a list of blog IDs
+async function fetchViewCounts(blogIds) {
+  if (!blogIds || blogIds.length === 0) return {};
+  try {
+    const { data, error } = await supabase
+      .from('blog_views')
+      .select('blog_id')
+      .in('blog_id', blogIds);
+    if (error || !data) return {};
+    const counts = {};
+    data.forEach(v => {
+      counts[v.blog_id] = (counts[v.blog_id] || 0) + 1;
+    });
+    return counts;
+  } catch {
+    return {};
+  }
+}
+
 export const blogService = {
   // Fetch all published blogs with optional filtering & search
   async getBlogs({ category, tag, search, limit = 10, page = 1 } = {}) {
@@ -28,7 +47,16 @@ export const blogService = {
 
       const { data, error, count } = await query;
       if (error) throw error;
-      return { data: data || [], count, error: null };
+
+      // Fetch view counts and merge
+      const blogIds = (data || []).map(b => b.id);
+      const viewCounts = await fetchViewCounts(blogIds);
+      const dataWithViews = (data || []).map(b => ({
+        ...b,
+        view_count: viewCounts[b.id] || 0,
+      }));
+
+      return { data: dataWithViews, count, error: null };
     } catch (error) {
       console.error('Error fetching blogs:', error.message);
       return { data: [], count: 0, error: error.message };
@@ -50,7 +78,16 @@ export const blogService = {
         .order('published_at', { ascending: false })
         .limit(limit);
       if (error) throw error;
-      return { data: data || [], error: null };
+
+      // Fetch view counts and merge
+      const blogIds = (data || []).map(b => b.id);
+      const viewCounts = await fetchViewCounts(blogIds);
+      const dataWithViews = (data || []).map(b => ({
+        ...b,
+        view_count: viewCounts[b.id] || 0,
+      }));
+
+      return { data: dataWithViews, error: null };
     } catch (error) {
       return { data: [], error: error.message };
     }
@@ -70,9 +107,17 @@ export const blogService = {
         .eq('status', 'published')
         .single();
       if (error) throw error;
-      // Increment view count asynchronously — don't await
+
+      // Record view asynchronously
       supabase.from('blog_views').insert([{ blog_id: data.id }]).then(() => {});
-      return { data, error: null };
+
+      // Fetch current view count (including the one we just added)
+      const { count: viewCount } = await supabase
+        .from('blog_views')
+        .select('*', { count: 'exact', head: true })
+        .eq('blog_id', data.id);
+
+      return { data: { ...data, view_count: viewCount || 0 }, error: null };
     } catch (error) {
       return { data: null, error: error.message };
     }
@@ -89,7 +134,16 @@ export const blogService = {
         .neq('slug', currentSlug)
         .limit(limit);
       if (error) throw error;
-      return { data: data || [], error: null };
+
+      // Fetch view counts and merge
+      const blogIds = (data || []).map(b => b.id);
+      const viewCounts = await fetchViewCounts(blogIds);
+      const dataWithViews = (data || []).map(b => ({
+        ...b,
+        view_count: viewCounts[b.id] || 0,
+      }));
+
+      return { data: dataWithViews, error: null };
     } catch (error) {
       return { data: [], error: error.message };
     }

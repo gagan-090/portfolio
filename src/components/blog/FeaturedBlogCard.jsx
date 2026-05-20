@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Clock, Calendar, ArrowRight } from 'lucide-react';
+import { Clock, Calendar, ArrowRight, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 
-const FeaturedBlogCard = ({ slug, title, excerpt, cover_image_url, reading_time_minutes, published_at, category }) => {
+const FeaturedBlogCard = ({ slug, title, excerpt, cover_image_url, reading_time_minutes, published_at, category, view_count }) => {
   const formattedDate = published_at
     ? format(new Date(published_at), 'MMM d, yyyy')
     : '';
@@ -53,6 +53,12 @@ const FeaturedBlogCard = ({ slug, title, excerpt, cover_image_url, reading_time_
               <span className="flex items-center gap-1.5 font-label-mono hidden sm:flex">
                 <Clock size={13} />
                 {reading_time_minutes} min read
+              </span>
+            )}
+            {view_count !== undefined && (
+              <span className="flex items-center gap-1.5 font-label-mono hidden sm:flex">
+                <Eye size={13} />
+                {(view_count || 0).toLocaleString()} views
               </span>
             )}
           </div>

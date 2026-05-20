@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { ArrowLeft, Clock, Calendar } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Eye } from 'lucide-react';
 import authorAvatar from '../assets/author.png';
 import { blogService } from '../services/blogService';
 import SEOHead from '../components/seo/SEOHead';
@@ -127,6 +127,11 @@ const BlogDetail = () => {
             {blog.reading_time_minutes && (
               <span className="flex items-center gap-1.5 border-l border-outline-variant pl-6">
                 <Clock size={14} /> {blog.reading_time_minutes} min read
+              </span>
+            )}
+            {blog.view_count !== undefined && (
+              <span className="flex items-center gap-1.5 border-l border-outline-variant pl-6">
+                <Eye size={14} /> {(blog.view_count || 0).toLocaleString()} {blog.view_count === 1 ? 'view' : 'views'}
               </span>
             )}
           </div>

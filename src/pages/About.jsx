@@ -67,7 +67,7 @@ export const About = () => {
         >
           <motion.div variants={fadeUp} className="md:col-span-7 flex flex-col justify-center">
             <span className="font-label-mono text-label-mono text-primary tracking-[0.3em] mb-4">01</span>
-            <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-8 text-on-surface">About Me</h1>
+            <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-8 text-on-surface leading-tight break-words">About Me</h1>
             <div className="hairline-h w-24 mb-8"></div>
             <p className="font-body-main text-body-main max-w-lg mb-12 text-on-surface-variant leading-relaxed">
               I am Gagan Shukla, a mobile developer dedicated to the intersection of architectural precision and high-performance engineering. My work focuses on building seamless user experiences through technical rigor and meticulous attention to visual detail.
@@ -75,21 +75,21 @@ export const About = () => {
             
             {/* Stat Grid */}
             <div className="grid grid-cols-2 gap-y-12 border-t border-outline-variant pt-12">
-              <div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">2+</h3>
-                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant">Years Experience</p>
+              <div className="min-w-0">
+                <h3 className="font-headline-md text-headline-md text-on-surface break-words">2+</h3>
+                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant break-words">Years Experience</p>
               </div>
-              <div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">5+</h3>
-                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant">Production Apps</p>
+              <div className="min-w-0">
+                <h3 className="font-headline-md text-headline-md text-on-surface break-words">5+</h3>
+                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant break-words">Production Apps</p>
               </div>
-              <div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">30-40%</h3>
-                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant">Performance Boost</p>
+              <div className="min-w-0">
+                <h3 className="font-headline-md text-headline-md text-on-surface break-words">30-40%</h3>
+                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant break-words">Performance Boost</p>
               </div>
-              <div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">2×</h3>
-                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant">National Winner</p>
+              <div className="min-w-0">
+                <h3 className="font-headline-md text-headline-md text-on-surface break-words">2×</h3>
+                <p className="font-label-mono text-label-mono uppercase text-on-surface-variant break-words">National Winner</p>
               </div>
             </div>
           </motion.div>
@@ -119,10 +119,10 @@ export const About = () => {
           <span className="font-label-mono text-label-mono text-on-surface-variant">EXPLORING THE TIMELINE OF GROWTH</span>
         </div>
         <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-outline-variant transform md:-translate-x-1/2"></div>
+          {/* Vertical Line - hidden on mobile, shown on md+ */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-outline-variant transform -translate-x-1/2" />
           
-          <div className="space-y-24 relative">
+          <div className="space-y-12 md:space-y-24 relative">
             {milestones.map((milestone, idx) => (
               <motion.div 
                 key={idx}
@@ -130,23 +130,31 @@ export const About = () => {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 variants={fadeUp}
-                className="flex flex-col md:flex-row items-center"
+                className="flex flex-col md:flex-row items-start md:items-center"
               >
+                {/* Mobile layout: always left-aligned with left border */}
+                <div className="block md:hidden pl-6 border-l-2 border-primary">
+                  <span className="font-label-mono text-label-mono text-primary mb-1 block">{milestone.year}</span>
+                  <h4 className="font-subhead-italic text-subhead-italic italic text-on-surface">{milestone.title}</h4>
+                  <p className="font-body-main text-body-main text-on-surface-variant mt-2 leading-relaxed">{milestone.description}</p>
+                </div>
+
+                {/* Desktop alternating layout */}
                 {idx % 2 === 0 ? (
                   <>
-                    <div className="w-full md:w-1/2 md:pr-16 md:text-right mb-4 md:mb-0">
+                    <div className="hidden md:block w-1/2 pr-16 text-right">
                       <span className="font-label-mono text-label-mono text-primary mb-2 block">{milestone.year}</span>
                       <h4 className="font-subhead-italic text-subhead-italic italic text-on-surface">{milestone.title}</h4>
                       <p className="font-body-main text-body-main text-on-surface-variant mt-2 leading-relaxed">{milestone.description}</p>
                     </div>
-                    <div className="absolute left-0 md:left-1/2 w-3 h-3 bg-on-surface transform -translate-x-1/2 rounded-full hidden md:block"></div>
-                    <div className="w-full md:w-1/2 md:pl-16"></div>
+                    <div className="hidden md:block absolute left-1/2 w-3 h-3 bg-on-surface transform -translate-x-1/2 rounded-full" />
+                    <div className="hidden md:block w-1/2 pl-16" />
                   </>
                 ) : (
                   <>
-                    <div className="w-full md:w-1/2 md:pr-16"></div>
-                    <div className="absolute left-0 md:left-1/2 w-3 h-3 bg-on-surface transform -translate-x-1/2 rounded-full hidden md:block"></div>
-                    <div className="w-full md:w-1/2 md:pl-16 mb-4 md:mb-0">
+                    <div className="hidden md:block w-1/2 pr-16" />
+                    <div className="hidden md:block absolute left-1/2 w-3 h-3 bg-on-surface transform -translate-x-1/2 rounded-full" />
+                    <div className="hidden md:block w-1/2 pl-16">
                       <span className="font-label-mono text-label-mono text-primary mb-2 block">{milestone.year}</span>
                       <h4 className="font-subhead-italic text-subhead-italic italic text-on-surface">{milestone.title}</h4>
                       <p className="font-body-main text-body-main text-on-surface-variant mt-2 leading-relaxed">{milestone.description}</p>

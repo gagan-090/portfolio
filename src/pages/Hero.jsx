@@ -44,16 +44,16 @@ export const Hero = () => {
             <p className="font-subhead-italic text-subhead-italic text-on-surface-variant italic mb-8 max-w-xl">
               Full Stack Mobile App Developer specializing in Flutter, React Native, and high-fidelity cross-platform systems that bridge precision and performance.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <button 
                 onClick={() => navigate('/work')}
-                className="bg-[#0A0A0A] text-white px-8 py-4 font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary transition-all duration-300"
+                className="w-full sm:w-auto bg-[#0A0A0A] text-white px-8 py-4 font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary transition-all duration-300"
               >
                 View Portfolio
               </button>
               <button 
                 onClick={() => navigate('/contact')}
-                className="border border-[#0A0A0A] text-on-surface px-8 py-4 font-label-mono text-label-mono uppercase tracking-widest hover:bg-[#F5F8FF] transition-all duration-300"
+                className="w-full sm:w-auto border border-[#0A0A0A] text-on-surface px-8 py-4 font-label-mono text-label-mono uppercase tracking-widest hover:bg-[#F5F8FF] transition-all duration-300"
               >
                 Get In Touch
               </button>
@@ -96,7 +96,7 @@ export const Hero = () => {
           <div className="flex flex-col gap-6">
             <button 
               onClick={() => navigate('/contact')}
-              className="bg-[#0A0A0A] text-white px-12 py-6 font-label-mono text-label-mono uppercase tracking-widest text-center hover:bg-primary transition-all duration-300"
+              className="w-full md:w-auto bg-[#0A0A0A] text-white px-12 py-6 font-label-mono text-label-mono uppercase tracking-widest text-center hover:bg-primary transition-all duration-300"
             >
               Get In Touch
             </button>

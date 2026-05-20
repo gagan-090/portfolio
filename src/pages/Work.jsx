@@ -63,7 +63,7 @@ export const Work = () => {
       {/* Header */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div
-          className="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mt-12 md:mt-20"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 md:gap-stack-md mt-12 md:mt-20"
           initial="hidden"
           animate="visible"
           variants={fadeUp}
@@ -80,7 +80,7 @@ export const Work = () => {
       </section>
 
       {/* Filter and Portfolio Grid */}
-      <section className="max-w-[1200px] mx-auto px-gutter py-section-padding">
+      <section className="max-w-[1200px] mx-auto px-gutter py-16 md:py-[120px]">
         {/* Filters */}
         <div className="flex flex-wrap gap-4 border-b border-outline-variant pb-6 mb-12">
           {filters.map((filter) => (

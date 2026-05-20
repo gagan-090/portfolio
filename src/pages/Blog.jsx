@@ -91,7 +91,7 @@ const Blog = () => {
         {/* Header */}
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="mb-16">
           <h1 className="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tighter mb-4">
-            Engineering<br />
+            Engineering{' '}
             <span className="text-primary italic">Journal</span>.
           </h1>
           <p className="text-on-surface-variant text-body-lg max-w-2xl leading-relaxed">

@@ -117,3 +117,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #2563EB;
 }
+
+/* Hide scrollbar for category filter */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prevent layout shifts from transforms */
+.no-layout-shift {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

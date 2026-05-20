@@ -38,9 +38,10 @@ export const Navbar = () => {
               to={link.path}
               end={link.end}
               className={({ isActive }) =>
-                `font-body-main text-body-main transition-colors duration-200 pb-1 ${isActive
-                  ? 'text-primary font-bold border-b-2 border-primary'
-                  : 'text-on-surface-variant hover:text-primary'
+                `font-body-main text-body-main transition-colors duration-200 border-b-2 pb-0.5 ${
+                  isActive
+                    ? 'text-primary font-bold border-primary'
+                    : 'text-on-surface-variant hover:text-primary border-transparent'
                 }`
               }
             >
