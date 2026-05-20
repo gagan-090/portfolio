@@ -9,33 +9,17 @@ import { BreadcrumbSchema } from '../components/seo/StructuredData';
 
 const TechStackBanner = ({ type }) => {
   const isFlutter = type.toUpperCase() === 'FLUTTER';
-
   return (
-    <div className="w-full h-full bg-[#0A0A0A] flex flex-col items-center justify-center relative p-8 select-none overflow-hidden group">
-      {/* Background radial highlight — GPU composited via opacity only */}
-      <div
-        className={`absolute w-48 h-48 rounded-full blur-[80px] opacity-15 pointer-events-none ${isFlutter ? 'bg-[#0284C7]' : 'bg-[#0891B2]'}`}
-        style={{ willChange: 'opacity' }}
-      />
-
+    <div className="w-full h-full bg-[#0A0A0A] flex flex-col items-center justify-center relative p-8 select-none overflow-hidden">
+      <div className={`absolute w-48 h-48 rounded-full blur-[80px] opacity-15 pointer-events-none ${isFlutter ? 'bg-[#0284C7]' : 'bg-[#0891B2]'}`} />
       {isFlutter ? (
-        <svg
-          viewBox="0 0 2000 2000"
-          className="w-20 h-20 filter drop-shadow-[0_0_15px_rgba(2,132,199,0.3)]"
-          style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}
-        >
+        <svg viewBox="0 0 2000 2000" className="w-20 h-20 filter drop-shadow-[0_0_15px_rgba(2,132,199,0.3)]">
           <path fill="#47C5FB" d="M1411.3 759.2L915.2 263.1H0l683 683.1L0 1629.3h915.2l496.1-496.1 496.1-496.1-496.1 122.1z" />
           <path fill="#02569B" d="M1411.3 759.2l-496.1 496.1 496.1 496.1H1907l-495.7-496.1 495.7-496.1h-495.7z" />
           <path fill="#0175C2" d="M915.2 1255.3L419.1 1751.4H0l683-683.1 232.2 187z" />
         </svg>
       ) : (
-        <svg
-          viewBox="-11.5 -10.23174 23 20.46348"
-          className="w-20 h-20 text-[#0891B2] filter drop-shadow-[0_0_15px_rgba(8,145,178,0.3)]"
-          fill="none"
-          stroke="currentColor"
-          style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}
-        >
+        <svg viewBox="-11.5 -10.23174 23 20.46348" className="w-20 h-20 text-[#0891B2] filter drop-shadow-[0_0_15px_rgba(8,145,178,0.3)]" fill="none" stroke="currentColor">
           <circle cx="0" cy="0" r="2.05" fill="#0891B2" stroke="none" />
           <g stroke="#0891B2" strokeWidth="0.8">
             <ellipse rx="11" ry="4.2" />
@@ -44,7 +28,6 @@ const TechStackBanner = ({ type }) => {
           </g>
         </svg>
       )}
-
       <span className="font-label-mono text-[10px] text-white/50 uppercase tracking-[0.2em] mt-6 block">
         {type.toUpperCase()} Developer
       </span>
@@ -54,9 +37,7 @@ const TechStackBanner = ({ type }) => {
 
 export const Work = () => {
   const [activeFilter, setActiveFilter] = useState('ALL');
-
   const filters = ['ALL', 'FLUTTER', 'REACT NATIVE'];
-
   const filteredProjects = activeFilter === 'ALL'
     ? projectsData
     : projectsData.filter(p => p.type.toUpperCase() === activeFilter);
@@ -122,31 +103,28 @@ export const Work = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                /* isolate = new stacking context; transform-gpu = own compositor layer */
-                className="isolate border border-outline-variant p-6 flex flex-col justify-between group"
-                style={{ willChange: 'opacity, transform', backfaceVisibility: 'hidden' }}
+                className="relative p-6 flex flex-col justify-between group"
               >
-                {/* Inner wrapper handles the border-color transition so the card itself is untouched */}
-                <div
-                  className="absolute inset-0 border border-transparent transition-colors duration-300 group-hover:border-on-surface pointer-events-none"
-                  style={{ backfaceVisibility: 'hidden' }}
-                />
+                {/* Default border */}
+                <div className="absolute inset-0 border border-outline-variant pointer-events-none" />
+                
+                {/* Hover border (GPU composited via opacity, zero layout shift) */}
+                <div className="absolute inset-0 border border-on-surface opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-                <div>
+                <div className="relative z-10">
                   {/* Image container */}
-                  <div className="overflow-hidden border border-outline-variant mb-6 relative">
-                    <div className="h-[250px] md:h-[300px] w-full bg-surface-container overflow-hidden flex items-center justify-center">
+                  <div className="overflow-hidden border border-outline-variant mb-6 relative bg-surface-container">
+                    <div className="h-[250px] md:h-[300px] w-full overflow-hidden flex items-center justify-center">
                       {['truckmitr', 'TMConnact', 'hrms-crm'].includes(project.id) ? (
                         <TechStackBanner type={project.type} />
                       ) : (
-                        <div className="p-4 w-full h-full flex items-center justify-center">
+                        <div className="p-4 w-full h-full flex items-center justify-center overflow-hidden">
                           <img
                             loading="lazy"
                             src={project.image}
                             alt={project.title}
-                            /* Only animate transform + opacity — both GPU composited */
-                            className="w-full h-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[transform,filter] duration-500 ease-out"
-                            style={{ willChange: 'transform, filter', backfaceVisibility: 'hidden' }}
+                            className="w-full h-full object-contain grayscale group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-500 ease-out"
+                            style={{ transform: 'translateZ(0)' }}
                           />
                         </div>
                       )}
@@ -158,7 +136,7 @@ export const Work = () => {
                     <h3 className="font-headline-md text-2xl font-bold text-on-surface">
                       {project.title}
                     </h3>
-                    <span className="font-label-mono text-[10px] text-primary border border-outline-variant px-3 py-1">
+                    <span className="font-label-mono text-[10px] text-primary border border-outline-variant px-3 py-1 flex-shrink-0 ml-4">
                       {project.type.toUpperCase()}
                     </span>
                   </div>
@@ -168,7 +146,7 @@ export const Work = () => {
                   </p>
                 </div>
 
-                <div>
+                <div className="relative z-10">
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag, idx) => (
@@ -189,15 +167,11 @@ export const Work = () => {
                           ? `/work/${project.id}`
                           : project.link
                       }
-                      className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:text-[#2563EB] transition-colors inline-flex items-center gap-2 group/btn"
+                      className="font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:text-[#2563EB] inline-flex items-center gap-2 group/btn transition-colors duration-200"
+                      style={{ transform: 'translateZ(0)' }}
                     >
                       View Project
-                      <span
-                        className="material-symbols-outlined text-[16px]"
-                        style={{ display: 'inline-block', willChange: 'transform', backfaceVisibility: 'hidden', transition: 'transform 300ms ease' }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateX(4px)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateX(0px)'; }}
-                      >
+                      <span className="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover/btn:translate-x-1">
                         arrow_forward
                       </span>
                     </Link>
@@ -208,10 +182,10 @@ export const Work = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="View Source on GitHub"
-                        className="text-on-surface-variant hover:text-primary transition-colors duration-200 flex items-center justify-center w-8 h-8"
-                        style={{ willChange: 'color', backfaceVisibility: 'hidden' }}
+                        className="text-on-surface-variant hover:text-[#2563EB] transition-colors duration-200 flex items-center justify-center w-8 h-8 flex-shrink-0"
+                        style={{ transform: 'translateZ(0)' }}
                       >
-                        <span className="material-symbols-outlined text-[20px]" style={{ lineHeight: 1 }}>code</span>
+                        <span className="material-symbols-outlined text-[20px]">code</span>
                       </a>
                     )}
                   </div>

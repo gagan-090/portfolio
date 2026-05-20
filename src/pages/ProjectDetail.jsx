@@ -67,18 +67,148 @@ const TechStackHero = ({ type }) => {
   );
 };
 
-/* ─── Shared: Phone Mockup ─── */
-const PhoneMockup = ({ src, alt, label, large = true }) => (
+/* ─── Shared: Phone Mockup (iPhone 14 style) ─── */
+const PhoneMockup = ({ src, alt, label }) => (
   <motion.div variants={fadeUp} className="flex flex-col items-center w-full">
-    <div className={`relative ${large ? 'rounded-[32px] border-[6px]' : 'rounded-[24px] border-[5px]'} border-[#0A0A0A] bg-white shadow-2xl overflow-hidden w-full max-w-[200px] sm:max-w-[220px] aspect-[9/18] flex flex-col items-center justify-center`}>
-      {large && (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-[#0A0A0A] rounded-b-xl z-20 flex items-center justify-center">
-          <div className="w-10 h-0.5 bg-neutral-700 rounded-full" />
+    {/* Outer shell */}
+    <div
+      className="relative w-full max-w-[190px] sm:max-w-[210px] aspect-[9/19.5] flex-shrink-0"
+      style={{ filter: 'drop-shadow(0 24px 48px rgba(0,0,0,0.35))' }}
+    >
+      {/* Phone body */}
+      <div className="absolute inset-0 rounded-[38px] bg-[#0A0A0A] border-[7px] border-[#1a1a1a] overflow-hidden">
+
+        {/* Screen */}
+        <div className="relative w-full h-full bg-black overflow-hidden rounded-[31px]">
+
+          {/* Screenshot */}
+          <img
+            loading="lazy"
+            src={src}
+            alt={alt}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+
+          {/* Status bar dark overlay at very top */}
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-black/60 to-transparent z-10 pointer-events-none" />
+
+          {/* Dynamic Island — pill notch */}
+          <div
+            className="absolute z-20"
+            style={{ top: '10px', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <div
+              className="relative flex items-center justify-center"
+              style={{
+                width: '84px',
+                height: '26px',
+                backgroundColor: '#000000',
+                borderRadius: '20px',
+              }}
+            >
+              {/* Front camera dot */}
+              <div
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  width: '9px',
+                  height: '9px',
+                  borderRadius: '50%',
+                  backgroundColor: '#0a0a18',
+                  boxShadow: 'inset 0 0 0 1.5px #1e2035, 0 0 4px 1px rgba(0,100,255,0.15)',
+                }}
+              />
+              {/* Speaker grille */}
+              <div
+                style={{
+                  width: '30px',
+                  height: '5px',
+                  borderRadius: '3px',
+                  backgroundColor: '#111',
+                  marginRight: '16px',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Home indicator bar */}
+          <div
+            className="absolute z-20"
+            style={{ bottom: '8px', left: '50%', transform: 'translateX(-50%)' }}
+          >
+            <div
+              style={{
+                width: '80px',
+                height: '4px',
+                borderRadius: '2px',
+                backgroundColor: 'rgba(255,255,255,0.55)',
+              }}
+            />
+          </div>
         </div>
-      )}
-      <img loading="lazy" src={src} alt={alt} className="w-full h-full object-cover" />
+      </div>
+
+      {/* Left side buttons */}
+      {/* Silent switch */}
+      <div
+        className="absolute"
+        style={{
+          left: '-9px',
+          top: '72px',
+          width: '3px',
+          height: '26px',
+          backgroundColor: '#2a2a2a',
+          borderRadius: '2px 0 0 2px',
+        }}
+      />
+      {/* Volume up */}
+      <div
+        className="absolute"
+        style={{
+          left: '-9px',
+          top: '110px',
+          width: '3px',
+          height: '44px',
+          backgroundColor: '#2a2a2a',
+          borderRadius: '2px 0 0 2px',
+        }}
+      />
+      {/* Volume down */}
+      <div
+        className="absolute"
+        style={{
+          left: '-9px',
+          top: '162px',
+          width: '3px',
+          height: '44px',
+          backgroundColor: '#2a2a2a',
+          borderRadius: '2px 0 0 2px',
+        }}
+      />
+
+      {/* Right side button (power) */}
+      <div
+        className="absolute"
+        style={{
+          right: '-9px',
+          top: '120px',
+          width: '3px',
+          height: '64px',
+          backgroundColor: '#2a2a2a',
+          borderRadius: '0 2px 2px 0',
+        }}
+      />
+
+      {/* Subtle gloss reflection */}
+      <div
+        className="absolute inset-0 rounded-[38px] pointer-events-none"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%)',
+        }}
+      />
     </div>
-    <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center px-2">{label}</span>
+
+    <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-4 text-center px-2">{label}</span>
   </motion.div>
 );
 
@@ -312,11 +442,11 @@ const GlowCartDetail = () => (
     <InterfaceShowcase
       subtitle="GlowCart High-Fidelity App Showcase"
       phones={[
-        { src: glowcartImg1, alt: 'GlowCart Screen 1', label: '1. Welcome splash' },
-        { src: glowcartImg2, alt: 'GlowCart Screen 2', label: '2. Product list' },
-        { src: glowcartImg3, alt: 'GlowCart Screen 3', label: '3. Product detail' },
-        { src: glowcartImg4, alt: 'GlowCart Screen 4', label: '4. Shopping cart' },
-        { src: glowcartImg5, alt: 'GlowCart Screen 5', label: '5. Profile' },
+        { src: glowcartImg4, alt: 'GlowCart Onboarding', label: '1. Welcome Splash' },
+        { src: glowcartImg5, alt: 'GlowCart Login', label: '2. Auth & Profile' },
+        { src: glowcartImg3, alt: 'GlowCart Categories', label: '3. Categories Hub' },
+        { src: glowcartImg1, alt: 'GlowCart Product Detail', label: '4. Product Detail' },
+        { src: glowcartImg2, alt: 'GlowCart Shopping Cart', label: '5. Shopping Cart' },
       ]}
     />
 
