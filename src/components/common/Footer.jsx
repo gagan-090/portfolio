@@ -16,6 +16,7 @@ export const Footer = () => {
             <Link className="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors underline decoration-1 underline-offset-4 uppercase tracking-widest" to="/work">Work</Link>
             <Link className="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors underline decoration-1 underline-offset-4 uppercase tracking-widest" to="/skills">Skills</Link>
             <Link className="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors underline decoration-1 underline-offset-4 uppercase tracking-widest" to="/experience">Experience</Link>
+            <Link className="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors underline decoration-1 underline-offset-4 uppercase tracking-widest" to="/blog">Blog</Link>
             <Link className="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors underline decoration-1 underline-offset-4 uppercase tracking-widest" to="/contact">Contact</Link>
           </div>
         </div>

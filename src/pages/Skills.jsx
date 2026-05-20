@@ -3,6 +3,8 @@ import { motion, useInView } from 'framer-motion';
 import { skillsData, coreFocusCategories, toolsData } from '../data/skills';
 import { StatCard } from '../components/ui/StatCard';
 import { fadeUp, staggerContainer } from '../utils/animations';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema, ServiceSchema } from '../components/seo/StructuredData';
 
 const SkillCategoryCard = ({ categoryName, skills }) => {
   return (
@@ -31,6 +33,22 @@ export const Skills = () => {
 
   return (
     <div className="w-full bg-white select-none">
+      <SEOHead
+        title="Technical Skills — Gagan Shukla | Flutter, React Native, Full Stack Development"
+        description="Explore Gagan Shukla's technical skills: Flutter, React Native, React.js, Node.js, PostgreSQL, Firebase, Supabase, and cloud services. Clean architecture, cross-platform development expertise."
+        canonical="https://gaganshukla.in/skills"
+        keywords="Flutter Developer Skills, React Native Skills, Full Stack Developer Skills, Mobile Development, Cross Platform Development, JavaScript, Node.js, PostgreSQL, Firebase, Supabase, Clean Architecture, App Development Services"
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' },
+        { name: 'Skills', url: 'https://gaganshukla.in/skills' }
+      ]} />
+      <ServiceSchema services={[
+        { name: 'Flutter App Development', description: 'Cross-platform iOS & Android mobile app development using Flutter and Dart with clean architecture', type: 'Mobile App Development' },
+        { name: 'React Native Development', description: 'High-performance native mobile apps with React Native, Redux, and native bridge optimization', type: 'Mobile App Development' },
+        { name: 'Full Stack Web Development', description: 'End-to-end web applications with React.js, Next.js, Node.js, and PostgreSQL', type: 'Web Development' },
+        { name: 'UI/UX Engineering', description: 'Premium user interfaces with micro-animations, responsive design systems, and high-fidelity mockups', type: 'Design & Development' },
+      ]} />
       {/* Header Section */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div 

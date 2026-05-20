@@ -15,6 +15,9 @@ import Skills from './pages/Skills';
 import Experience from './pages/Experience';
 import Contact from './pages/Contact';
 import ProjectDetail from './pages/ProjectDetail';
+import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
+import NotFound from './pages/NotFound';
 
 import './styles/index.css';
 
@@ -88,6 +91,30 @@ const AnimatedRoutes = () => {
           element={
             <PageTransition>
               <Contact />
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/blog" 
+          element={
+            <PageTransition>
+              <Blog />
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/blog/:slug" 
+          element={
+            <PageTransition>
+              <BlogDetail />
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="*" 
+          element={
+            <PageTransition>
+              <NotFound />
             </PageTransition>
           } 
         />

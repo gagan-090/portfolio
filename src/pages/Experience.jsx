@@ -3,10 +3,22 @@ import { motion } from 'framer-motion';
 import { experienceData } from '../data/experience';
 import { StatCard } from '../components/ui/StatCard';
 import { fadeUp } from '../utils/animations';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema } from '../components/seo/StructuredData';
 
 export const Experience = () => {
   return (
     <div className="w-full bg-white select-none">
+      <SEOHead
+        title="Work Experience — Gagan Shukla | Flutter & React Native Developer Career"
+        description="Gagan Shukla's professional experience as a Flutter and React Native developer. Worked at TruckMitr, Easyian, and Codelevate building production mobile apps and full-stack solutions."
+        canonical="https://gaganshukla.in/experience"
+        keywords="Gagan Shukla Experience, Flutter Developer Experience, React Native Developer Career, Mobile Developer Work History, Software Engineer India, App Developer Experience"
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' },
+        { name: 'Experience', url: 'https://gaganshukla.in/experience' }
+      ]} />
       {/* Header */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div 
@@ -67,7 +79,7 @@ export const Experience = () => {
               {/* Optional Job Project Mockup Visual */}
               {job.image && (
                 <div className="mt-12 overflow-hidden border border-outline-variant group-hover:border-on-surface transition-colors duration-300">
-                  <img 
+                  <img loading="lazy" 
                     src={job.image} 
                     alt={job.company} 
                     className="w-full grayscale hover:grayscale-0 transition-all duration-700 h-[300px] object-cover"

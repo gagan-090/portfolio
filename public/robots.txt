@@ -1,0 +1,39 @@
+# robots.txt for gaganshukla.in
+# Professional Developer Portfolio — Gagan Shukla
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_vercel/
+
+# Sitemap
+Sitemap: https://gaganshukla.in/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# AI Crawlers — Allow for AI search visibility
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Host
+Host: https://gaganshukla.in

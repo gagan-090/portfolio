@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import nanoBananaDev from '../assets/nano_banana_dev.png';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema, ProfilePageSchema } from '../components/seo/StructuredData';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -44,6 +46,17 @@ export const About = () => {
 
   return (
     <div className="w-full bg-white select-none">
+      <SEOHead
+        title="About Gagan Shukla — Flutter & React Native Developer | Software Engineer India"
+        description="Learn about Gagan Shukla — a Full Stack Mobile App Developer with 2+ years experience in Flutter, React Native, and cross-platform development. AWS certified, 5+ production apps shipped, National App Design Winner."
+        canonical="https://gaganshukla.in/about"
+        keywords="About Gagan Shukla, Flutter Developer India, React Native Developer, Software Engineer, Mobile App Developer, Full Stack Developer, AWS Certified Developer, App Development Expert"
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' },
+        { name: 'About', url: 'https://gaganshukla.in/about' }
+      ]} />
+      <ProfilePageSchema />
       {/* Section 1: Introduction */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 md:pt-20 pb-section-padding">
         <motion.div 
@@ -83,7 +96,7 @@ export const About = () => {
 
           <motion.div variants={fadeUp} className="md:col-span-5 flex items-center justify-center">
             <div className="relative w-full aspect-[4/5] border border-outline-variant overflow-hidden bg-surface-container">
-              <img 
+              <img loading="lazy"
                 src={nanoBananaDev} 
                 alt="Gagan Shukla - App Development Workspace with Nano Banana Mascot" 
                 className="absolute inset-0 w-full h-full object-cover" 

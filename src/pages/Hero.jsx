@@ -7,6 +7,8 @@ import { AbstractMockup } from '../components/ui/AbstractMockup';
 import { StatCard } from '../components/ui/StatCard';
 import { FeaturedProject } from '../components/ui/FeaturedProject';
 import { fadeUp, fadeIn, staggerContainer } from '../utils/animations';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema } from '../components/seo/StructuredData';
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -14,6 +16,15 @@ export const Hero = () => {
 
   return (
     <div className="w-full bg-white select-none">
+      <SEOHead
+        title="Gagan Shukla — Flutter & React Native Developer | Full Stack App Developer Portfolio"
+        description="Gagan Shukla is a Full Stack Mobile App Developer specializing in Flutter, React Native, and cross-platform development. 2+ years experience, 5+ production apps shipped. View portfolio, case studies, and hire for app development services."
+        canonical="https://gaganshukla.in/"
+        keywords="Gagan Shukla, Flutter Developer, React Native Developer, Full Stack Developer, App Developer, Software Engineer, Mobile App Developer, Developer Portfolio, Cross Platform Developer, App Development Services, Hire Flutter Developer"
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' }
+      ]} />
       {/* Hero Intro */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div 
@@ -25,13 +36,13 @@ export const Hero = () => {
           {/* Left Column Text */}
           <motion.div className="col-span-12 md:col-span-7 flex flex-col justify-center" variants={fadeUp}>
             <span className="font-label-mono text-label-mono text-primary uppercase tracking-[0.2em] block mb-4">
-              Editorial Portfolio — 2026
+              Flutter & React Native Developer — Portfolio 2026
             </span>
             <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-6 tracking-tighter leading-none">
               Gagan Shukla
             </h1>
             <p className="font-subhead-italic text-subhead-italic text-on-surface-variant italic mb-8 max-w-xl">
-              Specializing in Flutter, React Native, and high-fidelity mobile systems that bridge precision and performance.
+              Full Stack Mobile App Developer specializing in Flutter, React Native, and high-fidelity cross-platform systems that bridge precision and performance.
             </p>
             <div className="flex flex-wrap gap-4">
               <button 

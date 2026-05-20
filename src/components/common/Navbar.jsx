@@ -15,6 +15,7 @@ export const Navbar = () => {
     { path: '/work', label: 'Work' },
     { path: '/skills', label: 'Skills' },
     { path: '/experience', label: 'Experience' },
+    { path: '/blog', label: 'Blog' },
     { path: '/contact', label: 'Contact' },
   ];
 

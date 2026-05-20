@@ -1,0 +1,21 @@
+{
+  "name": "Gagan Shukla — Flutter & React Native Developer Portfolio",
+  "short_name": "Gagan Shukla",
+  "description": "Professional developer portfolio of Gagan Shukla — Full Stack Mobile App Developer specializing in Flutter, React Native, and cross-platform development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0A0A0A",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["portfolio", "technology", "development"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

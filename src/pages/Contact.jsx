@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../utils/animations';
 import { supabase } from '../supabaseClient';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema } from '../components/seo/StructuredData';
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -52,6 +54,16 @@ export const Contact = () => {
 
   return (
     <div className="w-full bg-white select-none">
+      <SEOHead
+        title="Contact Gagan Shukla — Hire Flutter & React Native Developer | App Development Services"
+        description="Get in touch with Gagan Shukla for Flutter app development, React Native projects, and full-stack mobile development services. Available for remote contracts and full-time roles."
+        canonical="https://gaganshukla.in/contact"
+        keywords="Hire Gagan Shukla, Hire Flutter Developer, Hire React Native Developer, Contact App Developer, Mobile Development Services, Freelance Flutter Developer, App Development Quote"
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' },
+        { name: 'Contact', url: 'https://gaganshukla.in/contact' }
+      ]} />
       {/* Hero Header */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div
@@ -206,7 +218,7 @@ export const Contact = () => {
         <div className="grid grid-cols-12 gap-gutter items-center">
           <div className="col-span-12 md:col-span-8">
             <div className="h-[400px] w-full bg-surface-container overflow-hidden border border-outline-variant">
-              <img
+              <img loading="lazy"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0GJ-w6AHNiDkLjruNPNWRCyzldaWlxLk1MfOurvfqbMBlOYJwHx23lIM1ynTlZ6BnIOWmh9-sHmhLeJ2fAaLKPJZJfvGDNvEb_pu3DohTGD44lgxDVO-nJ1zOp_WNaSqc4mhw4NeACK5rigPUsLOT9uzlnTpbJpF14uLHmrkIY4utn_rS9uG9MFlxIDzKcYFkc407KM_VO4KM1kSu8bb9tzXl001qq35TeBL1LKi5A5hnHyMsvQ7F2iA0rIUvPwdbStv6rEInZbM"
                 alt="Modern Studio Space"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"

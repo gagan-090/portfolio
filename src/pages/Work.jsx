@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { projectsData } from '../data/projects';
 import { StatCard } from '../components/ui/StatCard';
 import { fadeUp } from '../utils/animations';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema } from '../components/seo/StructuredData';
 
 const TechStackBanner = ({ type }) => {
   const isFlutter = type.toUpperCase() === 'FLUTTER';
@@ -48,6 +50,16 @@ export const Work = () => {
 
   return (
     <div className="w-full bg-white select-none">
+      <SEOHead
+        title="Portfolio & Case Studies — Gagan Shukla | Flutter & React Native Projects"
+        description="Explore Gagan Shukla's portfolio of production mobile apps built with Flutter and React Native. Case studies include e-commerce, logistics, HRMS, and lifestyle platforms."
+        canonical="https://gaganshukla.in/work"
+        keywords="Gagan Shukla Portfolio, Flutter Projects, React Native Projects, Mobile App Case Studies, App Development Portfolio, Flutter Portfolio, Developer Portfolio, Cross Platform Apps"
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' },
+        { name: 'Work', url: 'https://gaganshukla.in/work' }
+      ]} />
       {/* Header */}
       <section className="max-w-[1200px] mx-auto px-gutter pt-12 pb-stack-lg border-b border-outline-variant">
         <motion.div
@@ -104,7 +116,7 @@ export const Work = () => {
                         <TechStackBanner type={project.type} />
                       ) : (
                         <div className="p-4 w-full h-full flex items-center justify-center">
-                          <img
+                          <img loading="lazy"
                             src={project.image}
                             alt={project.title}
                             className="w-full h-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-[transform,filter] duration-500 ease-out"

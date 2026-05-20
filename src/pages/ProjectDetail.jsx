@@ -1,6 +1,9 @@
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { projectsData } from '../data/projects';
+import SEOHead from '../components/seo/SEOHead';
+import { BreadcrumbSchema, SoftwareAppSchema, ProjectSchema } from '../components/seo/StructuredData';
 
 // Import AURA local images
 import auraHero from '../assets/Aura/home.jpeg';
@@ -168,7 +171,7 @@ const AuraDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={auraLogin} alt="AURA Login Interface" className="w-full h-full object-contain" />
+              <img loading="lazy" src={auraLogin} alt="AURA Login Interface" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">1. Auth Portal</span>
           </motion.div>
@@ -179,7 +182,7 @@ const AuraDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={auraHero} alt="AURA Home Interface" className="w-full h-full object-contain" />
+              <img loading="lazy" src={auraHero} alt="AURA Home Interface" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">2. Experience Hub</span>
           </motion.div>
@@ -190,7 +193,7 @@ const AuraDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={auraImg1} alt="AURA Destination Discovery" className="w-full h-full object-contain" />
+              <img loading="lazy" src={auraImg1} alt="AURA Destination Discovery" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">3. Tour Discovery</span>
           </motion.div>
@@ -201,7 +204,7 @@ const AuraDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={auraImg2} alt="AURA Date Scheduling" className="w-full h-full object-contain" />
+              <img loading="lazy" src={auraImg2} alt="AURA Date Scheduling" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">4. Event Details</span>
           </motion.div>
@@ -237,7 +240,7 @@ const AuraDetail = () => (
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
               <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
             </div>
-            <img src={auraImg3} alt="AURA Couples Planner Interface" className="w-full h-full object-contain" />
+            <img loading="lazy" src={auraImg3} alt="AURA Couples Planner Interface" className="w-full h-full object-contain" />
           </div>
           <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">5. Booking Success Portal</span>
         </div>
@@ -345,7 +348,7 @@ const GlowCartDetail = () => (
           {/* Mockup 1 */}
           <motion.div variants={fadeUp} className="flex flex-col items-center">
             <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img src={glowcartImg1} alt="GlowCart Screen 1" className="w-full h-full object-cover" />
+              <img loading="lazy" src={glowcartImg1} alt="GlowCart Screen 1" className="w-full h-full object-cover" />
             </div>
             <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">1. Welcome splash</span>
           </motion.div>
@@ -353,7 +356,7 @@ const GlowCartDetail = () => (
           {/* Mockup 2 */}
           <motion.div variants={fadeUp} className="flex flex-col items-center">
             <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img src={glowcartImg2} alt="GlowCart Screen 2" className="w-full h-full object-cover" />
+              <img loading="lazy" src={glowcartImg2} alt="GlowCart Screen 2" className="w-full h-full object-cover" />
             </div>
             <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">2. Product list</span>
           </motion.div>
@@ -361,7 +364,7 @@ const GlowCartDetail = () => (
           {/* Mockup 3 */}
           <motion.div variants={fadeUp} className="flex flex-col items-center">
             <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img src={glowcartImg3} alt="GlowCart Screen 3" className="w-full h-full object-cover" />
+              <img loading="lazy" src={glowcartImg3} alt="GlowCart Screen 3" className="w-full h-full object-cover" />
             </div>
             <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">3. Product detail</span>
           </motion.div>
@@ -369,7 +372,7 @@ const GlowCartDetail = () => (
           {/* Mockup 4 */}
           <motion.div variants={fadeUp} className="flex flex-col items-center">
             <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img src={glowcartImg4} alt="GlowCart Screen 4" className="w-full h-full object-cover" />
+              <img loading="lazy" src={glowcartImg4} alt="GlowCart Screen 4" className="w-full h-full object-cover" />
             </div>
             <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">4. Shopping cart</span>
           </motion.div>
@@ -377,7 +380,7 @@ const GlowCartDetail = () => (
           {/* Mockup 5 */}
           <motion.div variants={fadeUp} className="flex flex-col items-center">
             <div className="relative rounded-[30px] border-[6px] border-[#0A0A0A] bg-white p-1 shadow-xl overflow-hidden max-w-[210px] h-[420px] flex flex-col items-center justify-center">
-              <img src={glowcartImg5} alt="GlowCart Screen 5" className="w-full h-full object-cover" />
+              <img loading="lazy" src={glowcartImg5} alt="GlowCart Screen 5" className="w-full h-full object-cover" />
             </div>
             <span className="font-label-mono text-[10px] uppercase tracking-widest text-on-surface-variant mt-3 text-center">5. Profile</span>
           </motion.div>
@@ -477,7 +480,7 @@ const HashKartDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={hashkartHero} alt="HashKart Product Listing" className="w-full h-full object-contain" />
+              <img loading="lazy" src={hashkartHero} alt="HashKart Product Listing" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">1. Main Marketplace Feed</span>
           </motion.div>
@@ -488,7 +491,7 @@ const HashKartDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={hashkartImg1} alt="HashKart Item Carousel" className="w-full h-full object-contain" />
+              <img loading="lazy" src={hashkartImg1} alt="HashKart Item Carousel" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">2. Product Showcase</span>
           </motion.div>
@@ -499,7 +502,7 @@ const HashKartDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={hashkartImg2} alt="HashKart Stripe Checkout" className="w-full h-full object-contain" />
+              <img loading="lazy" src={hashkartImg2} alt="HashKart Stripe Checkout" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">3. Stripe Payment Gateway</span>
           </motion.div>
@@ -510,7 +513,7 @@ const HashKartDetail = () => (
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
                 <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
               </div>
-              <img src={hashkartImg3} alt="HashKart Order Confirmation" className="w-full h-full object-contain" />
+              <img loading="lazy" src={hashkartImg3} alt="HashKart Order Confirmation" className="w-full h-full object-contain" />
             </div>
             <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">4. Order Summary Hub</span>
           </motion.div>
@@ -539,7 +542,7 @@ const HashKartDetail = () => (
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0A0A0A] rounded-b-2xl z-20 flex items-center justify-center">
               <div className="w-12 h-1 bg-neutral-700 rounded-full mb-1"></div>
             </div>
-            <img src={hashkartImg4} alt="HashKart Tech Stack" className="w-full h-full object-contain" />
+            <img loading="lazy" src={hashkartImg4} alt="HashKart Tech Stack" className="w-full h-full object-contain" />
           </div>
           <span className="font-label-mono text-xs uppercase tracking-widest text-on-surface-variant mt-4">5. Stock Inventory Sandbox</span>
         </div>
@@ -838,9 +841,29 @@ const ProjectDetail = () => {
     return <Navigate to="/work" replace />;
   }
 
+  const projectInfo = projectsData.find(p => p.id === projectId) || projectsData[0];
+
   // Scroll to top automatically handled by App.jsx
   return (
-    <div className="pt-8">
+    <div className="pt-8 w-full bg-white select-none">
+      <SEOHead
+        title={`${projectInfo.title} — App Case Study | Gagan Shukla`}
+        description={projectInfo.description}
+        canonical={`https://gaganshukla.in/work/${projectId}`}
+        keywords={`${projectInfo.title}, ${projectInfo.tags.join(', ')}, Flutter Case Study, React Native Portfolio, App Development`}
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://gaganshukla.in/' },
+        { name: 'Work', url: 'https://gaganshukla.in/work' },
+        { name: projectInfo.title, url: `https://gaganshukla.in/work/${projectId}` }
+      ]} />
+      <SoftwareAppSchema app={{
+        name: projectInfo.title,
+        description: projectInfo.longDescription || projectInfo.description,
+        os: 'Android, iOS',
+      }} />
+      <ProjectSchema project={projectInfo} />
+      
       {projectId === 'aura' && <AuraDetail />}
       {projectId === 'glowcart' && <GlowCartDetail />}
       {projectId === 'hashkart' && <HashKartDetail />}
