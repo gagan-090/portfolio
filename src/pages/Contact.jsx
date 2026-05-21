@@ -22,6 +22,29 @@ export const Contact = () => {
     if (formData.name && formData.email) {
       setIsSubmitting(true);
       
+      try {
+        // Extract domain from email
+        const domain = formData.email.split('@')[1];
+        if (domain) {
+          // Validate domain MX records using Cloudflare DNS over HTTPS (highly reliable, no rate limits)
+          const dnsRes = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=MX`, {
+            headers: { 'accept': 'application/dns-json' }
+          });
+          if (dnsRes.ok) {
+            const dnsData = await dnsRes.json();
+            // Status 0 means NOERROR. If there's no Answer or no records of type 15 (MX), it can't receive email.
+            const hasMX = dnsData.Status === 0 && dnsData.Answer && dnsData.Answer.some(record => record.type === 15);
+            if (!hasMX) {
+              setError('The email address provided does not appear to exist or cannot receive emails.');
+              setIsSubmitting(false);
+              return;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Email validation service unavailable:', err);
+      }
+
       const { error: submitError } = await supabase
         .from('contact_messages')
         .insert([

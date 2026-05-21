@@ -14,10 +14,11 @@ const AnimatedCounter = ({ value, label, sublabel }) => {
   const isInView = useInView(ref, { once: true, amount: 0.5 });
   const [displayValue, setDisplayValue] = useState("0");
   
-  // Extract numeric part and suffix
-  const numericMatch = value.match(/^(\d+)/);
+  // Extract numeric part and suffix safely
+  const safeValue = value != null ? value.toString() : "0";
+  const numericMatch = safeValue.match(/^(\d+)/);
   const targetNum = numericMatch ? parseInt(numericMatch[1], 10) : 0;
-  const suffix = value.replace(/^\d+/, ''); // e.g. "+", "K", etc.
+  const suffix = safeValue.replace(/^\d+/, ''); // e.g. "+", "K", etc.
 
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, { 

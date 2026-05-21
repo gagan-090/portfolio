@@ -61,6 +61,15 @@ export default {
         "xl": "0px",
         "full": "9999px"
       },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        }
+      },
+      animation: {
+        marquee: 'marquee 25s linear infinite',
+      },
       spacing: {
         "container-margin": "auto",
         "max-width": "1200px",
