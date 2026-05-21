@@ -708,6 +708,56 @@ A CDN ensures that static assets travel a shorter physical distance to the user,
 **What is the difference between \`async\` and \`defer\` in scripts?**
 Both attributes allow the HTML parser to continue reading the document while the script downloads. However, \`async\` executes the script immediately after it finishes downloading (which can block the render if the HTML isn't finished). \`defer\` guarantees the script will not execute until the entire HTML document has been fully parsed.
 `
+  },
+  {
+    title: 'The Rise of Edge Databases: SQLite, Turso, and Supabase Edge',
+    slug: 'rise-of-edge-databases-sqlite-turso-supabase',
+    category_slug: 'database-optimization',
+    excerpt: 'Why modern full-stack architectures are moving away from centralized Postgres servers and pushing data to the absolute edge with SQLite and distributed replicas.',
+    reading_time_minutes: 5,
+    is_featured: true,
+    cover_image_url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop',
+    content: `## The Edge Database Revolution\n\nFor decades, the standard web architecture involved a stateless compute layer (like Node.js or edge functions) communicating with a monolithic, centralized database server. This created an unavoidable physics problem: if your edge function is running in Tokyo but your Postgres database is in US-East, you still suffer massive latency overhead.\n\nIn 2026, the paradigm has shifted. We are no longer just pushing compute to the edge; we are pushing the data itself.\n\n### SQLite at the Edge (Turso)\nSQLite is no longer just for local mobile storage. Technologies like libSQL (the open-source fork of SQLite) and Turso have made SQLite distributed and queryable over HTTP. You can now replicate your entire database to hundreds of edge nodes globally. \n\nWhen a user in London queries your app, the read hits a London-based SQLite replica in less than 5 milliseconds.\n\n### Supabase Edge and Read Replicas\nSupabase has countered by introducing distributed read replicas and Edge Functions that connect directly to local Postgres caches. By leveraging Row Level Security (RLS) directly at the edge, Supabase maintains security while drastically reducing Time to First Byte (TTFB).\n\n### Conclusion\nIf you are building a globally scaled application today, relying on a single monolithic database region is an anti-pattern. Adopting edge databases dramatically improves UX and resilience.`
+  },
+  {
+    title: 'Optimizing React Native Performance: Identifying and Fixing Memory Leaks',
+    slug: 'optimizing-react-native-memory-leaks',
+    category_slug: 'frontend-architecture',
+    excerpt: 'A deep dive into advanced debugging techniques for hunting down memory leaks, unclosed listeners, and zombie components in large-scale React Native applications.',
+    reading_time_minutes: 6,
+    is_featured: false,
+    cover_image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+    content: `## The Silent Killer: Memory Leaks\n\nYou've built a beautiful React Native application. It runs perfectly on your simulator. But after deploying it, users start complaining that the app crashes or becomes unbearably slow after 15 minutes of usage.\n\nYou likely have a memory leak. In React Native, memory leaks are almost always caused by holding onto references of unmounted components.\n\n### 1. Unclosed Subscriptions and Event Listeners\nThe most common culprit is failing to clean up listeners in \`useEffect\`. If you subscribe to a WebSocket, Firebase, or Supabase channel and forget to unsubscribe on unmount, the component stays in memory forever.\n\n\`\`\`javascript\n// ❌ BAD: The listener keeps the component alive after unmount\nuseEffect(() => {\n  supabase.channel('chat').on('postgres_changes', callback).subscribe();\n}, []);\n\n// ✅ GOOD: Always return a cleanup function\nuseEffect(() => {\n  const channel = supabase.channel('chat').on('postgres_changes', callback).subscribe();\n  return () => { supabase.removeChannel(channel); };\n}, []);\n\`\`\`\n\n### 2. Zombie Closures in State Management\nIf you are using Redux or Zustand, be careful about capturing component state inside a thunk or action that outlives the component. \n\n### 3. Profiling with Flipper\nTo hunt down these leaks, you must use the React Native Profiler (or Flipper). Take a memory heap snapshot, navigate back and forth between screens 5 times, and take another snapshot. If the number of mounted \`View\` instances keeps climbing, you have found your leak.`
+  },
+  {
+    title: 'WebSockets vs Server-Sent Events (SSE): Architecting Real-Time Apps',
+    slug: 'websockets-vs-sse-real-time-chat',
+    category_slug: 'architecture',
+    excerpt: 'When should you use WebSockets, Server-Sent Events, or Long Polling? A technical breakdown of real-time protocols for modern applications.',
+    reading_time_minutes: 4,
+    is_featured: false,
+    cover_image_url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop',
+    content: `## The Real-Time Dilemma\n\nBuilding a chat application, live dashboard, or collaborative document editor requires real-time data sync. For years, the default answer was "just use WebSockets." However, as architectures move toward serverless and edge compute, maintaining persistent WebSocket connections has become an expensive infrastructure challenge.\n\n### WebSockets: Bidirectional Power\nWebSockets provide a full-duplex, persistent connection over TCP. Both the client and server can push messages at any time with virtually zero overhead. \n- **Best for:** Multiplayer games, collaborative editing (like Figma), and high-frequency trading dashboards.\n- **Drawback:** They are stateful. Load balancing WebSocket servers requires complex sticky sessions and Redis pub/sub backplanes.\n\n### Server-Sent Events (SSE): The Lightweight Alternative\nSSE operates over standard HTTP. It provides a unidirectional flow of data from the server to the client. The client opens a request, and the server keeps the stream open to push text data indefinitely.\n- **Best for:** Live sports scores, AI streaming responses (like ChatGPT), and live social media feeds.\n- **Advantage:** Because SSE uses standard HTTP, it automatically works with standard load balancers, HTTP/2 multiplexing, and corporate firewalls.\n\n### The Verdict\nDo not default to WebSockets unless your client is pushing high-frequency data back to the server. For 80% of use cases (including notifications and live feeds), Server-Sent Events (SSE) offer a massively simpler and more scalable architecture.`
+  },
+  {
+    title: 'Monorepos in 2026: Managing Full-Stack Apps with Turborepo and Nx',
+    slug: 'monorepos-2026-turborepo-nx',
+    category_slug: 'architecture',
+    excerpt: 'Why multi-repo architectures are dying, and how to structure enterprise codebases using modern monorepo build systems.',
+    reading_time_minutes: 5,
+    is_featured: false,
+    cover_image_url: 'https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop',
+    content: `## The Death of the Multi-Repo\n\nFive years ago, a standard startup architecture looked like this: one GitHub repository for the React frontend, one for the Node.js backend, and one for the React Native mobile app. \n\nThe result? Code duplication. Defining the \`User\` TypeScript interface in three different places, constantly battling version mismatches, and copy-pasting utility functions.\n\n### The Monorepo Solution\nA monorepo stores your frontend, backend, mobile app, and shared libraries inside a single Git repository. \n\nWith tools like **Turborepo** and **Nx**, managing this complexity has become trivial.\n\n### Shared Packages\nIn a modern Turborepo setup, you can create a \`packages/ui\` folder for your React component library and a \`packages/types\` folder for your database schemas. Both your Next.js web app and your React Native mobile app can simply import these local packages. Update the button component once, and both apps are instantly updated.\n\n### Remote Caching\nThe true superpower of Turborepo and Nx is build caching. If you run a build on your local machine, the build artifacts are uploaded to a remote cache (like Vercel). When your CI/CD pipeline runs on GitHub Actions, it simply downloads the cached build in seconds instead of recompiling the entire application.\n\n### Conclusion\nIf you are building a product that spans web, mobile, and backend, a monorepo is no longer optional—it is a mandatory architectural requirement for maintaining developer sanity.`
+  },
+  {
+    title: 'Securing Cross-Platform Mobile Applications: Best Practices for Flutter',
+    slug: 'securing-cross-platform-mobile-applications',
+    category_slug: 'cybersecurity',
+    excerpt: 'Stop storing API keys in your code. A masterclass in securing Flutter and React Native apps against reverse engineering and man-in-the-middle attacks.',
+    reading_time_minutes: 6,
+    is_featured: false,
+    cover_image_url: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=2070&auto=format&fit=crop',
+    content: `## Your Mobile App is a Public API\n\nThe most dangerous assumption a mobile developer can make is believing the code on a user's device is secure. It is trivially easy to download an APK, decompile the JavaScript bundle (React Native) or the Dart binaries (Flutter), and extract hardcoded secrets.\n\n### 1. Never Hardcode API Keys\nIf you hardcode a Google Maps API key or a Stripe secret directly in your Dart or JS code, a hacker will find it. You must use \`.env\` files during development, but more importantly, **never ship private keys to the client**. \n\nYour mobile app should only talk to your backend server, and your backend server should talk to the third-party APIs using the private keys.\n\n### 2. Certificate Pinning\nBy default, mobile apps trust the SSL certificates installed on the device. A hacker can install a proxy (like Charles or Burp Suite), install a root certificate on their phone, and read all of your app's API traffic in plain text.\n\nTo prevent this Man-in-the-Middle (MITM) attack, implement **Certificate Pinning**. This forces your app to strictly verify that the server's certificate exactly matches a known, hardcoded hash. If the hashes don't match, the app instantly severs the connection.\n\n### 3. Obfuscation and RASP\nWhile no app is 100% un-hackable, you must increase the difficulty. Use tools like ProGuard (Android) to obfuscate code. Implement Runtime Application Self-Protection (RASP) to detect if your app is running on a jailbroken/rooted device or inside an emulator, and shut down sensitive features if detected.\n\nSecurity is not a feature; it is an architectural baseline.`
   }
 ];
 

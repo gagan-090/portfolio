@@ -25,9 +25,9 @@ export const Navbar = () => {
         <NavLink
           to="/"
           onClick={closeMenu}
-          className="font-headline-md text-headline-md font-bold tracking-tighter text-on-surface"
+          className="flex items-center"
         >
-          GS
+          <img src="/favicon.svg" alt="GS Logo" className="h-12 w-auto" />
         </NavLink>
 
         {/* Desktop Navigation */}

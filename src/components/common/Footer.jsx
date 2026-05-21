@@ -6,7 +6,9 @@ export const Footer = () => {
     <footer className="w-full bg-white border-t border-outline-variant">
       <div className="max-w-[1200px] mx-auto px-gutter py-stack-lg flex flex-col md:flex-row justify-between items-start gap-stack-md">
         <div>
-          <div className="font-headline-md text-headline-md font-bold text-on-surface mb-2">GS</div>
+          <Link to="/" className="inline-block mb-3">
+            <img src="/favicon.svg" alt="GS Logo" className="h-12 w-auto" />
+          </Link>
           <p className="font-label-mono text-label-mono text-on-surface-variant max-w-[300px]">© 2026 GAGAN SHUKLA. BUILT WITH PRECISION.</p>
         </div>
         <div className="flex flex-col gap-4">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { ArrowLeft, Clock, Calendar, Eye } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Eye, Heart } from 'lucide-react';
 import authorAvatar from '../assets/author.png';
 import { blogService } from '../services/blogService';
 import SEOHead from '../components/seo/SEOHead';
@@ -12,6 +12,16 @@ import MDXRenderer, { extractHeadings } from '../components/blog/MDXRenderer';
 import ShareButtons from '../components/blog/ShareButtons';
 import BlogCard from '../components/blog/BlogCard';
 
+// Helper to get or create a persistent device ID
+const getDeviceId = () => {
+  let deviceId = localStorage.getItem('device_id');
+  if (!deviceId) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem('device_id', deviceId);
+  }
+  return deviceId;
+};
+
 const BlogDetail = () => {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
@@ -19,6 +29,7 @@ const BlogDetail = () => {
   const [headings, setHeadings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -32,6 +43,23 @@ const BlogDetail = () => {
         
         setBlog(data);
         setHeadings(extractHeadings(data.content));
+
+        const deviceId = getDeviceId();
+        
+        // Check if user has liked this post
+        const isLiked = await blogService.hasLiked(data.id, deviceId);
+        setHasLiked(isLiked);
+
+        // Record Unique View
+        const viewedKey = `viewed_${data.id}_${deviceId}`;
+        if (!localStorage.getItem(viewedKey)) {
+          const viewRecorded = await blogService.recordView(data.id, deviceId);
+          if (viewRecorded) {
+            localStorage.setItem(viewedKey, 'true');
+            // Optimistically update view count in UI
+            setBlog(prev => ({ ...prev, view_count: (prev.view_count || 0) + 1 }));
+          }
+        }
 
         // Fetch related posts
         if (data.category?.slug) {
@@ -50,6 +78,29 @@ const BlogDetail = () => {
     fetchBlogData();
     window.scrollTo(0, 0);
   }, [slug]);
+
+  const handleLike = async () => {
+    if (!blog) return;
+    const deviceId = getDeviceId();
+    
+    // Optimistic UI update
+    const newLikedState = !hasLiked;
+    setHasLiked(newLikedState);
+    setBlog(prev => ({ 
+      ...prev, 
+      like_count: (prev.like_count || 0) + (newLikedState ? 1 : -1) 
+    }));
+
+    const result = await blogService.toggleLike(blog.id, deviceId);
+    if (result.error) {
+      // Revert on error
+      setHasLiked(!newLikedState);
+      setBlog(prev => ({ 
+        ...prev, 
+        like_count: (prev.like_count || 0) + (!newLikedState ? 1 : -1) 
+      }));
+    }
+  };
 
   if (loading) {
     return (
@@ -134,6 +185,12 @@ const BlogDetail = () => {
                 <Eye size={14} /> {(blog.view_count || 0).toLocaleString()} {blog.view_count === 1 ? 'view' : 'views'}
               </span>
             )}
+            {blog.like_count !== undefined && (
+              <span className="flex items-center gap-1.5 border-l border-outline-variant pl-6">
+                <Heart size={14} className={hasLiked ? 'fill-red-500 text-red-500' : ''} /> 
+                {(blog.like_count || 0).toLocaleString()} {blog.like_count === 1 ? 'like' : 'likes'}
+              </span>
+            )}
           </div>
         </header>
 
@@ -153,6 +210,17 @@ const BlogDetail = () => {
 
             {/* Bottom Actions */}
             <div className="mt-16 pt-8 border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-6">
+              <button 
+                onClick={handleLike}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-label-mono text-[12px] uppercase tracking-widest transition-all duration-200 ${
+                  hasLiked 
+                    ? 'bg-red-50 text-red-500 border border-red-200 hover:bg-red-100' 
+                    : 'bg-surface-container text-on-surface-variant border border-outline-variant hover:bg-surface-container-high'
+                }`}
+              >
+                <Heart size={16} className={hasLiked ? 'fill-current' : ''} />
+                {hasLiked ? 'Liked' : 'Like this post'}
+              </button>
               <ShareButtons url={currentUrl} title={blog.title} />
             </div>
 

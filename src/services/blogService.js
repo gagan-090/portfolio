@@ -108,18 +108,90 @@ export const blogService = {
         .single();
       if (error) throw error;
 
-      // Record view asynchronously
-      supabase.from('blog_views').insert([{ blog_id: data.id }]).then(() => {});
-
-      // Fetch current view count (including the one we just added)
+      // Fetch current view count
       const { count: viewCount } = await supabase
         .from('blog_views')
         .select('*', { count: 'exact', head: true })
         .eq('blog_id', data.id);
 
-      return { data: { ...data, view_count: viewCount || 0 }, error: null };
+      // Fetch current like count
+      const { count: likeCount } = await supabase
+        .from('blog_likes')
+        .select('*', { count: 'exact', head: true })
+        .eq('blog_id', data.id);
+
+      return { 
+        data: { 
+          ...data, 
+          view_count: viewCount || 0,
+          like_count: likeCount || 0
+        }, 
+        error: null 
+      };
     } catch (error) {
       return { data: null, error: error.message };
+    }
+  },
+
+  // Record a unique view
+  async recordView(blogId, deviceId) {
+    try {
+      // Check if this device already viewed this blog in the database (optional fallback to localStorage)
+      const { count } = await supabase
+        .from('blog_views')
+        .select('*', { count: 'exact', head: true })
+        .eq('blog_id', blogId)
+        .eq('ip_address', deviceId); // Re-using ip_address column for device_id
+        
+      if (count === 0) {
+        await supabase.from('blog_views').insert([{ blog_id: blogId, ip_address: deviceId }]);
+        return true; // New view recorded
+      }
+      return false; // Already viewed
+    } catch (error) {
+      console.error('Error recording view:', error);
+      return false;
+    }
+  },
+
+  // Toggle Like status
+  async toggleLike(blogId, deviceId) {
+    try {
+      // Check if already liked
+      const { data: existingLike } = await supabase
+        .from('blog_likes')
+        .select('id')
+        .eq('blog_id', blogId)
+        // Note: Using a generic 'device_id' string column instead of auth-restricted 'user_id'
+        .eq('user_id', deviceId) 
+        .single();
+
+      if (existingLike) {
+        // Unlike
+        await supabase.from('blog_likes').delete().eq('id', existingLike.id);
+        return { liked: false };
+      } else {
+        // Like
+        await supabase.from('blog_likes').insert([{ blog_id: blogId, user_id: deviceId }]);
+        return { liked: true };
+      }
+    } catch (error) {
+      console.error('Error toggling like:', error);
+      return { error: error.message };
+    }
+  },
+
+  // Check if current device has liked the blog
+  async hasLiked(blogId, deviceId) {
+    try {
+      const { count } = await supabase
+        .from('blog_likes')
+        .select('*', { count: 'exact', head: true })
+        .eq('blog_id', blogId)
+        .eq('user_id', deviceId);
+      return count > 0;
+    } catch (error) {
+      return false;
     }
   },
 

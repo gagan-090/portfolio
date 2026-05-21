@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS blog_likes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  blog_id UUID REFERENCES blogs(id) ON DELETE CASCADE,
+  user_id VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(blog_id, user_id)
+);
+ALTER TABLE blog_likes DISABLE ROW LEVEL SECURITY;
