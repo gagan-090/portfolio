@@ -52,10 +52,10 @@ export const Navbar = () => {
 
         <div className="flex items-center gap-4">
           <a
-            href="/Gagan_Shukla_Resume_.pdf"
+            href="/Main_Resume_.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            download="Gagan_Shukla_Resume_.pdf"
+            download="Main_Resume_.pdf"
             className="hidden md:inline-flex items-center gap-2 bg-[#0A0A0A] text-white px-5 py-2 font-label-mono text-[11px] uppercase tracking-widest font-bold hover:bg-[#2563EB] transition-colors duration-200"
           >
             Resume
@@ -121,10 +121,10 @@ export const Navbar = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.04 }}
-                href="/Gagan_Shukla_Resume_.pdf"
+                href="/Main_Resume_.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                download="Gagan_Shukla_Resume_.pdf"
+                download="Main_Resume_.pdf"
                 onClick={closeMenu}
                 className="w-full text-center bg-[#0A0A0A] text-white py-3 font-label-mono text-label-mono uppercase tracking-widest font-bold hover:bg-[#2563EB] transition-colors duration-200 mt-2 flex items-center justify-center gap-2"
               >
