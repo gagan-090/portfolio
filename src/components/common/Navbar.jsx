@@ -56,14 +56,6 @@ export const Navbar = () => {
             target="_blank"
             rel="noopener noreferrer"
             download="Gagan_Shukla_Resume_.pdf"
-            onClick={() => {
-              const link = document.createElement('a');
-              link.href = '/Gagan_Shukla_Resume_.pdf';
-              link.download = 'Gagan_Shukla_Resume_.pdf';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-            }}
             className="hidden md:inline-flex items-center gap-2 bg-[#0A0A0A] text-white px-5 py-2 font-label-mono text-[11px] uppercase tracking-widest font-bold hover:bg-[#2563EB] transition-colors duration-200"
           >
             Resume
@@ -133,15 +125,7 @@ export const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 download="Gagan_Shukla_Resume_.pdf"
-                onClick={() => {
-                  closeMenu();
-                  const link = document.createElement('a');
-                  link.href = '/Gagan_Shukla_Resume_.pdf';
-                  link.download = 'Gagan_Shukla_Resume_.pdf';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
+                onClick={closeMenu}
                 className="w-full text-center bg-[#0A0A0A] text-white py-3 font-label-mono text-label-mono uppercase tracking-widest font-bold hover:bg-[#2563EB] transition-colors duration-200 mt-2 flex items-center justify-center gap-2"
               >
                 Resume
