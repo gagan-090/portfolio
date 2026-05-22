@@ -7,6 +7,7 @@ import Footer from './components/common/Footer';
 import CustomCursor from './components/common/CustomCursor';
 import ScrollProgress from './components/common/ScrollProgress';
 import PageTransition from './components/common/PageTransition';
+import ChatBot from './components/ui/ChatBot';
 
 import Hero from './pages/Hero';
 import About from './pages/About';
@@ -131,6 +132,7 @@ function App() {
         <CustomCursor />
         <Navbar />
         <ScrollProgress />
+        <ChatBot />
         <main className="pt-20">
           <AnimatedRoutes />
         </main>
