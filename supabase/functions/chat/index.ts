@@ -98,6 +98,16 @@ serve(async (req) => {
 
         if (error) {
           console.error("Supabase insert error:", error);
+        } else {
+          // Call the send_email Edge Function
+          await supabase.functions.invoke('send_email', {
+            body: { 
+              name, 
+              email, 
+              subject: subject || "AI Chatbot Enquiry", 
+              message: emailMessage 
+            }
+          }).catch(err => console.error("Failed to trigger email function:", err));
         }
 
         // Send the function response back to the model to get the final text response

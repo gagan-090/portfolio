@@ -56,6 +56,18 @@ export const Contact = () => {
           }
         ]);
 
+      // Call the Edge Function to send the email via Resend
+      if (!submitError) {
+        supabase.functions.invoke('send_email', {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message
+          }
+        }).catch(err => console.warn('Failed to trigger email function:', err));
+      }
+
       setIsSubmitting(false);
 
       if (submitError) {
@@ -118,8 +130,8 @@ export const Contact = () => {
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col">
                   <span className="font-label-mono text-[10px] uppercase text-outline mb-1">Email</span>
-                  <a className="font-subhead-italic text-subhead-italic italic hover:text-primary transition-colors text-2xl" href="mailto:gaganshuklarmg@gmail.com">
-                    gaganshuklarmg@gmail.com
+                  <a className="font-subhead-italic text-subhead-italic italic hover:text-primary transition-colors text-2xl" href="mailto:contact@gaganshukla.in">
+                    contact@gaganshukla.in
                   </a>
                 </div>
                 <div className="flex flex-col">
