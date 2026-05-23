@@ -3,7 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projectsData } from '../data/projects';
 import SEOHead from '../components/seo/SEOHead';
-import { BreadcrumbSchema, SoftwareAppSchema, ProjectSchema } from '../components/seo/StructuredData';
+import { BreadcrumbSchema, SoftwareAppSchema, ProjectSchema, FAQSchema } from '../components/seo/StructuredData';
 
 // Import AURA local images
 import auraHero from '../assets/Aura/home.jpeg';
@@ -643,7 +643,7 @@ const ProjectDetail = () => {
 
   const validProjects = ['truckmitr', 'hrms-crm', 'aura', 'TMConnact', 'hashkart', 'glowcart'];
   if (!validProjects.includes(projectId)) {
-    return <Navigate to="/work" replace />;
+    return <Navigate to="/projects" replace />;
   }
 
   const projectInfo = projectsData.find(p => p.id === projectId) || projectsData[0];
@@ -653,13 +653,13 @@ const ProjectDetail = () => {
       <SEOHead
         title={`${projectInfo.title} — App Case Study | Gagan Shukla`}
         description={projectInfo.description}
-        canonical={`https://gaganshukla.in/work/${projectId}`}
+        canonical={`https://gaganshukla.in/projects/${projectId}`}
         keywords={`${projectInfo.title}, ${projectInfo.tags.join(', ')}, Flutter Case Study, React Native Portfolio, App Development`}
       />
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://gaganshukla.in/' },
-        { name: 'Work', url: 'https://gaganshukla.in/work' },
-        { name: projectInfo.title, url: `https://gaganshukla.in/work/${projectId}` }
+        { name: 'Projects', url: 'https://gaganshukla.in/projects' },
+        { name: projectInfo.title, url: `https://gaganshukla.in/projects/${projectId}` }
       ]} />
       <SoftwareAppSchema app={{
         name: projectInfo.title,
@@ -667,6 +667,29 @@ const ProjectDetail = () => {
         os: 'Android, iOS',
       }} />
       <ProjectSchema project={projectInfo} />
+      {projectInfo.faqs && <FAQSchema faqs={projectInfo.faqs.map(f => ({ question: f.q, answer: f.a }))} />}
+
+      {/* AI & Recruiter Summary Block */}
+      {projectInfo.ai_summary && (
+        <div className="max-w-[1200px] mx-auto px-gutter pt-8">
+          <div className="bg-[#f0f4f8] border-l-4 border-[#2563EB] p-6 rounded-r-lg">
+            <h3 className="font-label-mono text-xs uppercase tracking-widest text-[#2563EB] mb-2 flex items-center gap-2">
+              <span className="material-symbols-outlined text-[16px]">smart_toy</span>
+              AI & Recruiter Summary
+            </h3>
+            <p className="font-body-main text-sm text-on-surface-variant leading-relaxed">
+              {projectInfo.ai_summary}
+            </p>
+            {projectInfo.keyTakeaways && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {projectInfo.keyTakeaways.map(t => (
+                  <span key={t} className="bg-white border border-outline-variant px-3 py-1 text-xs rounded-full font-medium">{t}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {projectId === 'aura'      && <AuraDetail />}
       {projectId === 'glowcart'  && <GlowCartDetail />}

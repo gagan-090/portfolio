@@ -110,7 +110,7 @@ export const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                Specializing in Flutter, React Native, and high-fidelity cross-platform systems that bridge precision and performance.
+                I build scalable applications using React, Flutter, Node.js, and modern cloud infrastructure.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -121,7 +121,7 @@ export const Hero = () => {
                 transition={{ duration: 0.8, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
               >
                 <MagneticButton
-                  onClick={() => navigate('/work')}
+                  onClick={() => navigate('/projects')}
                   className="w-full sm:w-auto bg-[#0A0A0A] text-white px-8 py-4 font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary transition-all duration-300 cursor-pointer"
                 >
                   View Portfolio
@@ -216,7 +216,7 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <Link 
-              to="/work" 
+              to="/projects" 
               className="hidden md:inline-flex items-center gap-2 font-label-mono text-label-mono uppercase tracking-widest text-on-surface hover:text-primary transition-colors group"
             >
               View All
@@ -405,7 +405,11 @@ export const Hero = () => {
             >
               Get In Touch
             </MagneticButton>
-            <p className="font-body-main text-on-surface-variant text-center md:text-right pulse-dot flex items-center">
+            <p className="font-body-main text-on-surface-variant text-center md:text-right flex items-center gap-2">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
               Available for remote contracts and full-time roles.
             </p>
           </div>

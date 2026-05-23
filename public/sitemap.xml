@@ -18,18 +18,18 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Work / Portfolio -->
+  <!-- Work / Projects -->
   <url>
-    <loc>https://gaganshukla.in/work</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/projects</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Skills -->
+  <!-- Tech Stack -->
   <url>
-    <loc>https://gaganshukla.in/skills</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/tech-stack</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -37,7 +37,7 @@
   <!-- Experience -->
   <url>
     <loc>https://gaganshukla.in/experience</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -45,49 +45,57 @@
   <!-- Contact -->
   <url>
     <loc>https://gaganshukla.in/contact</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://gaganshukla.in/blog</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Project Case Studies -->
   <url>
-    <loc>https://gaganshukla.in/work/aura</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/projects/aura</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gaganshukla.in/work/glowcart</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/projects/glowcart</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gaganshukla.in/work/hashkart</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/projects/hashkart</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gaganshukla.in/work/truckmitr</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/projects/truckmitr</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gaganshukla.in/work/TMConnact</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://gaganshukla.in/projects/TMConnact</loc>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://gaganshukla.in/work/hrms-crm</loc>
+    <loc>https://gaganshukla.in/projects/hrms-crm</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

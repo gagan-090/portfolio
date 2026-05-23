@@ -69,8 +69,14 @@ export const About = () => {
             <span className="font-label-mono text-label-mono text-primary tracking-[0.3em] mb-4">01</span>
             <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-8 text-on-surface leading-tight break-words">About Me</h1>
             <div className="hairline-h w-24 mb-8"></div>
+            <p className="font-body-main text-body-main max-w-lg mb-8 text-on-surface-variant leading-relaxed">
+              <strong>Who I am:</strong> I am Gagan Shukla, a full-stack mobile developer dedicated to the intersection of architectural precision and high-performance engineering.
+            </p>
+            <p className="font-body-main text-body-main max-w-lg mb-8 text-on-surface-variant leading-relaxed">
+              <strong>Core expertise:</strong> Building highly scalable, cross-platform mobile applications using Flutter and React Native. I specialize in offline-first architectures, real-time WebSocket communication, and responsive UI/UX design.
+            </p>
             <p className="font-body-main text-body-main max-w-lg mb-12 text-on-surface-variant leading-relaxed">
-              I am Gagan Shukla, a mobile developer dedicated to the intersection of architectural precision and high-performance engineering. My work focuses on building seamless user experiences through technical rigor and meticulous attention to visual detail.
+              <strong>Work philosophy:</strong> My work focuses on building seamless user experiences through technical rigor, clean code architecture, and meticulous attention to visual detail. I believe in bridging the gap between design aesthetic and backend capability.
             </p>
             
             {/* Stat Grid */}

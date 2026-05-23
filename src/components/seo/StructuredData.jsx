@@ -185,16 +185,23 @@ export const ProjectSchema = ({ project }) => (
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "name": project.title,
-    "description": project.description,
-    "url": `https://gaganshukla.in/work/${project.id}`,
+    "description": project.ai_summary || project.description,
+    "url": `https://gaganshukla.in/projects/${project.id}`,
     "creator": {
       "@type": "Person",
       "name": "Gagan Shukla",
       "url": "https://gaganshukla.in"
     },
     "dateCreated": "2025",
-    "keywords": project.tags ? project.tags.join(", ") : "",
-    "genre": "Mobile Application Development"
+    "keywords": project.techStack ? project.techStack.join(", ") : (project.tags ? project.tags.join(", ") : ""),
+    "genre": "Mobile Application Development",
+    "text": `
+      Problem: ${project.problem || ''}
+      Solution: ${project.solution || ''}
+      Architecture: ${project.architecture || ''}
+      Impact: ${project.impact || ''}
+      Challenges: ${project.challenges || ''}
+    `.trim()
   }} />
 );
 
