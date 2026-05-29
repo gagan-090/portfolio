@@ -1,9 +1,20 @@
+
+import { auraGraph, glowcartGraph, hashkartGraph, truckmitrGraph, tmconnactGraph, hrmsGraph } from './animatedArchitectureData';
+
 import truckmitrHero from '../assets/truckmitr/truckmitr.jpeg';
 import hrmsHero from '../assets/HRMS/home.jpeg';
 import TMConnactHero from '../assets/tmconnect/tmconnect.jpeg';
 import hashkartHero from '../assets/hashkart/hashkart.jpeg';
 import auraHero from '../assets/Aura/home.jpeg';
 import glowcartHero from '../assets/GlowCart/home.jpeg';
+
+// Architecture Images
+import auraArch from '../assets/system_designs/aura_arch.png';
+import glowcartArch from '../assets/system_designs/glowcart_arch.png';
+import hashkartArch from '../assets/system_designs/hashkart_arch.png';
+import hrmsArch from '../assets/system_designs/hrms_arch.png';
+import tmconnactArch from '../assets/system_designs/tmconnact_arch.png';
+import truckmitrArch from '../assets/system_designs/truckmitr_arch.png';
 
 export const projectsData = [
   {
@@ -21,7 +32,7 @@ export const projectsData = [
     problem: 'Users lack a centralized, highly-curated platform to discover premium local experiences and bespoke couple activities without endlessly searching fragmented websites.',
     solution: 'Built a sleek, high-performance Flutter mobile app featuring an elegant UI, real-time booking slots, and curated discovery feeds powered by a robust backend.',
     architecture: 'Flutter frontend integrated with a Node.js REST API and PostgreSQL database for transactional integrity during bookings.',
-    techStack: ['Flutter', 'Dart', 'Node.js', 'PostgreSQL', 'Google Maps SDK', 'Stripe API'],
+    techStack: ['Flutter', 'Dart', 'Node.js', 'PostgreSQL', 'Google Maps SDK', 'Razorpay API'],
     results: 'Delivered a production-ready application with 60fps scrolling performance and <1s API response times for complex map queries.',
     challenges: 'Handling complex date/time slot overlaps across different timezones for global events.',
     impact: 'Streamlined the booking process for premium experiential events, providing vendors a reliable marketplace.',
@@ -30,7 +41,24 @@ export const projectsData = [
     faqs: [
       { q: 'What framework was AURA built with?', a: 'AURA was built using the Flutter framework with Dart.' },
       { q: 'Does AURA support real-time booking?', a: 'Yes, it features a real-time slot booking system to prevent double-booking.' }
-    ]
+    ],
+    // System Design
+    architectureImage: auraArch,
+    animatedGraph: auraGraph,
+    systemDesignOverview: 'The AURA architecture is built around a high-performance transactional core. The Flutter client utilizes state caching to ensure smooth 60fps scrolling through high-resolution image assets. It connects securely via HTTPS to a Node.js API Gateway, which load-balances requests between the Authentication, Booking, and Third-Party integration engines (Razorpay and Google Maps). The PostgreSQL database uses strict ACID compliance to prevent double-booking of time slots.',
+    mermaidFlow: `
+flowchart TD
+    A[Flutter Client] -->|HTTPS REST| B(Node.js API Gateway)
+    B --> C{Load Balancer}
+    C --> D[Auth Service]
+    C --> E[Booking Engine]
+    E --> F[(PostgreSQL Core)]
+    E --> G[Google Maps SDK]
+    E --> H[Razorpay API]
+    classDef default fill:#0A0A0A,stroke:#2563EB,stroke-width:2px,color:#fff;
+    classDef db fill:#1A1A1A,stroke:#10B981,stroke-width:2px,color:#fff;
+    class F db;
+`
   },
   {
     id: 'glowcart',
@@ -53,7 +81,24 @@ export const projectsData = [
     keyTakeaways: ['Advanced Flutter animations', 'Complex state management with Riverpod', 'E-Commerce UI paradigms'],
     faqs: [
       { q: 'How is state managed in GlowCart?', a: 'GlowCart uses Riverpod for robust and scalable state management.' }
-    ]
+    ],
+    // System Design
+    architectureImage: glowcartArch,
+    animatedGraph: glowcartGraph,
+    systemDesignOverview: 'GlowCart utilizes Riverpod for reactive state management at the client level, completely decoupling the UI rendering thread from background data fetching. The backend relies heavily on Firebase serverless infrastructure. Images are processed and served via a globally distributed CDN to ensure the cosmetic product imagery loads instantly, maintaining the premium brand aesthetic.',
+    mermaidFlow: `
+flowchart TD
+    A[Flutter UI Layer] -->|State Sync| B(Riverpod Core)
+    B --> C[Firebase Auth]
+    B --> D[Firestore Database]
+    B --> E[Cloud Storage]
+    D --> F{Global CDN}
+    E --> F
+    F -->|Optimized Images| A
+    classDef default fill:#0A0A0A,stroke:#2563EB,stroke-width:2px,color:#fff;
+    classDef cdn fill:#1A1A1A,stroke:#F59E0B,stroke-width:2px,color:#fff;
+    class F cdn;
+`
   },
   {
     id: 'hashkart',
@@ -61,7 +106,7 @@ export const projectsData = [
     type: 'Flutter',
     tags: ['Flutter', 'Full-Stack', 'Rust', 'PostgreSQL'],
     description: 'End-to-end e-commerce solution with integrated payment gateways and real-time inventory management.',
-    longDescription: 'HashKart features high-resolution image rendering galleries, seamless stripe checkout flows, and a blazing fast Rust-based analytics dashboard.',
+    longDescription: 'HashKart features high-resolution image rendering galleries, seamless razorpay checkout flows, and a blazing fast Rust-based analytics dashboard.',
     image: hashkartHero,
     link: '#',
     github: 'https://github.com/gagan-090/HashKart_Main.git',
@@ -69,7 +114,7 @@ export const projectsData = [
     problem: 'Traditional Node.js backends struggle with heavy analytical queries required by enterprise e-commerce dashboards.',
     solution: 'Engineered a dual-stack solution: a fast Node.js transactional API and a blazing fast Rust microservice for heavy analytics.',
     architecture: 'Microservices architecture with a mobile Flutter frontend, Node/Express API for transactions, Rust for data processing, and PostgreSQL.',
-    techStack: ['Flutter', 'Rust', 'Node.js', 'Express', 'PostgreSQL', 'Stripe'],
+    techStack: ['Flutter', 'Rust', 'Node.js', 'Express', 'PostgreSQL', 'Razorpay'],
     results: 'Reduced analytical query times by 80% compared to pure Node.js solutions.',
     challenges: 'Ensuring seamless cross-communication between the Rust microservice and the primary Node API.',
     impact: 'Demonstrated full-stack architectural competence scaling from frontend UI to systems-level backend programming.',
@@ -77,7 +122,24 @@ export const projectsData = [
     keyTakeaways: ['Microservices Architecture', 'Rust for high performance', 'End-to-end full stack development'],
     faqs: [
       { q: 'Why use Rust in HashKart?', a: 'Rust was used as a microservice specifically to handle heavy analytical database queries faster than Node.js.' }
-    ]
+    ],
+    // System Design
+    architectureImage: hashkartArch,
+    animatedGraph: hashkartGraph,
+    systemDesignOverview: 'HashKart employs a hybrid microservices architecture to balance fast UI transactions with heavy data processing. The primary user interactions (cart operations, checkout) flow through a Node.js API to guarantee fast, stateless responses. However, heavy inventory calculations and dashboard analytics are offloaded via gRPC to a hyper-performant Rust microservice connected to a PostgreSQL Read Replica, eliminating bottlenecks on the main thread.',
+    mermaidFlow: `
+flowchart TD
+    A[Mobile Client] -->|HTTPS| B[Node.js Transaction API]
+    A -->|Dashboards| C[Rust Analytics Engine]
+    B --> D[(PostgreSQL Master)]
+    C --> E[(PostgreSQL Replica)]
+    D -.->|Stream Replication| E
+    B --> F[Razorpay Gateway]
+    C -->|gRPC Sync| B
+    classDef default fill:#0A0A0A,stroke:#2563EB,stroke-width:2px,color:#fff;
+    classDef rust fill:#1A1A1A,stroke:#EF4444,stroke-width:2px,color:#fff;
+    class C rust;
+`
   },
   {
     id: 'truckmitr',
@@ -101,7 +163,22 @@ export const projectsData = [
     faqs: [
       { q: 'Is TruckMitr live?', a: 'Yes, TruckMitr is a production application available on the Google Play Store.' },
       { q: 'How does it handle poor networks?', a: 'It uses SQLite and local caching to provide offline-first capabilities.' }
-    ]
+    ],
+    // System Design
+    architectureImage: truckmitrArch,
+    animatedGraph: truckmitrGraph,
+    systemDesignOverview: 'TruckMitr is engineered specifically for hostile network environments (e.g., Indian highways). The React Native application utilizes a robust offline-first architecture. All user actions are written to a local SQLite vault on the device first. A background Redux-Saga sync engine constantly monitors network health, batching and pushing the encrypted SQLite data payload to the Central Cloud Server only when a stable 4G/5G connection is re-established.',
+    mermaidFlow: `
+flowchart TD
+    A[React Native UI] <--> B[(Local SQLite Vault)]
+    B -->|Network Detector| C[Sync Engine]
+    C -->|Batch Sync via REST| D[Central Cloud Server]
+    D --> E[(Cloud DB)]
+    C --> F[Google Maps APIs]
+    classDef default fill:#0A0A0A,stroke:#2563EB,stroke-width:2px,color:#fff;
+    classDef vault fill:#1A1A1A,stroke:#10B981,stroke-width:2px,color:#fff;
+    class B vault;
+`
   },
   {
     id: 'TMConnact',
@@ -124,7 +201,22 @@ export const projectsData = [
     keyTakeaways: ['Real-time WebSocket integration', 'Background service management', 'Resilient network architecture'],
     faqs: [
       { q: 'What protocol does TMConnact use?', a: 'It heavily utilizes WebSockets for real-time, low-latency communication instead of standard HTTP polling.' }
-    ]
+    ],
+    // System Design
+    architectureImage: tmconnactArch,
+    animatedGraph: tmconnactGraph,
+    systemDesignOverview: 'TMConnact utilizes a dual-pipeline sync architecture. The primary data layer operates over persistent WebSockets, maintaining an active, low-overhead heartbeat between the Flutter dispatcher app and the Logistics Core server. If the TCP connection is severed due to zero network coverage, the app seamlessly switches to a highly compressed binary SMS payload system. This ensures critical GPS and telemetry data is transmitted via cellular towers without requiring a data plan.',
+    mermaidFlow: `
+flowchart LR
+    A[Flutter Background Task] -->|Primary Pipeline| B((WebSockets))
+    A -.->|Zero-Data Fallback| C((Cellular SMS))
+    B <--> D[Logistics Core]
+    C --> D
+    D --> E[(Telemetry DB)]
+    classDef default fill:#0A0A0A,stroke:#2563EB,stroke-width:2px,color:#fff;
+    classDef sms fill:#1A1A1A,stroke:#EF4444,stroke-width:2px,color:#fff;
+    class C sms;
+`
   },
   {
     id: 'hrms-crm',
@@ -148,7 +240,24 @@ export const projectsData = [
     keyTakeaways: ['Enterprise application development', 'Unified UI/UX design', 'Scalable Node.js architecture'],
     faqs: [
       { q: 'Who is the target audience for the HRMS app?', a: 'The application is designed for mid-sized enterprises to consolidate their internal operations.' }
-    ]
+    ],
+    // System Design
+    architectureImage: hrmsArch,
+    animatedGraph: hrmsGraph,
+    systemDesignOverview: 'The HRMS & CRM platform uses an enterprise-scale unified UI pattern in React Native, routing diverse data streams into a single dashboard. An API Gateway securely routes incoming requests to decoupled microservices (HR, CRM, Payroll), preventing heavy sales data queries from slowing down critical payroll processes. The entire backend consolidates into a massive Supabase data lake, providing powerful Row-Level Security (RLS) to enforce strict corporate data segregation policies.',
+    mermaidFlow: `
+flowchart TD
+    A[React Native Unified Portal] --> B[API Gateway]
+    B --> C[HR Microservice]
+    B --> D[CRM Microservice]
+    B --> E[Payroll Microservice]
+    C --> F[(Supabase Data Lake + RLS)]
+    D --> F
+    E --> F
+    classDef default fill:#0A0A0A,stroke:#2563EB,stroke-width:2px,color:#fff;
+    classDef gateway fill:#1A1A1A,stroke:#8B5CF6,stroke-width:2px,color:#fff;
+    class B gateway;
+`
   }
 ];
 

@@ -3,6 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projectsData } from '../data/projects';
 import SEOHead from '../components/seo/SEOHead';
+import SystemDesign from '../components/projects/SystemDesign';
 import { BreadcrumbSchema, SoftwareAppSchema, ProjectSchema, FAQSchema } from '../components/seo/StructuredData';
 
 // Import AURA local images
@@ -356,7 +357,7 @@ const FeatureWithPhone = ({ heading, lead, bullets, phoneSrc, phoneAlt, phoneLab
 /* ════════════════════════════════════════
    AURA DETAIL
 ════════════════════════════════════════ */
-const AuraDetail = () => (
+const AuraDetail = ({ projectInfo }) => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
     <CaseStudyHeader
       num="Case Study 01"
@@ -406,14 +407,15 @@ const AuraDetail = () => (
       phoneLabel="5. Booking Success Portal"
     />
 
-    <NextProjectCTA label="GlowCart: Cosmetics Store" to="/work/glowcart" />
+    <SystemDesign overview={projectInfo.systemDesignOverview} mermaidCode={projectInfo.mermaidFlow} imageSrc={projectInfo.architectureImage} animatedGraph={projectInfo.animatedGraph} />
+    <NextProjectCTA label="GlowCart: Cosmetics Store" to="/projects/glowcart" />
   </motion.div>
 );
 
 /* ════════════════════════════════════════
    GLOWCART DETAIL
 ════════════════════════════════════════ */
-const GlowCartDetail = () => (
+const GlowCartDetail = ({ projectInfo }) => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
     <CaseStudyHeader
       num="Case Study 02"
@@ -450,19 +452,20 @@ const GlowCartDetail = () => (
       ]}
     />
 
-    <NextProjectCTA label="HashKart: Flutter E-Commerce" to="/work/hashkart" />
+    <SystemDesign overview={projectInfo.systemDesignOverview} mermaidCode={projectInfo.mermaidFlow} imageSrc={projectInfo.architectureImage} animatedGraph={projectInfo.animatedGraph} />
+    <NextProjectCTA label="HashKart: Flutter E-Commerce" to="/projects/hashkart" />
   </motion.div>
 );
 
 /* ════════════════════════════════════════
    HASHKART DETAIL
 ════════════════════════════════════════ */
-const HashKartDetail = () => (
+const HashKartDetail = ({ projectInfo }) => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
     <CaseStudyHeader
       num="Case Study 03"
       title={"HashKart:\nE-Commerce Solution"}
-      subtitle="High-performance e-commerce engine with Stripe and a reactive Rust-based backend analytics core."
+      subtitle="High-performance e-commerce engine with Razorpay and a reactive Rust-based backend analytics core."
       heroSrc={hashkartHero}
       heroAlt="HashKart Showcase Mockup"
       githubUrl="https://github.com/gagan-090/HashKart_Main.git"
@@ -471,12 +474,12 @@ const HashKartDetail = () => (
       { label: 'Role', value: 'Lead Mobile Architect' },
       { label: 'Duration', value: '4 Months' },
       { label: 'Platforms', value: 'iOS & Android' },
-      { label: 'Key Tech', value: 'Flutter, Rust, Stripe SDK' },
+      { label: 'Key Tech', value: 'Flutter, Rust, Razorpay SDK' },
     ]} />
     <BriefSection
       heading="Full-Stack E-Commerce Engine"
-      lead="HashKart was built to deliver lightning-fast item browsing and instant Stripe transactions for millions of retail buyers."
-      body="Modern digital shoppers expect seamless rendering and immediate checkout confirmation. HashKart fulfills this expectation through a high-performance rendering stack. It supports real-time multi-resolution image rendering galleries, seamless checkout configurations via Stripe API integrations, and robust real-time synchronization with a blazing fast Rust-based analytics inventory backend."
+      lead="HashKart was built to deliver lightning-fast item browsing and instant Razorpay transactions for millions of retail buyers."
+      body="Modern digital shoppers expect seamless rendering and immediate checkout confirmation. HashKart fulfills this expectation through a high-performance rendering stack. It supports real-time multi-resolution image rendering galleries, seamless checkout configurations via Razorpay API integrations, and robust real-time synchronization with a blazing fast Rust-based analytics inventory backend."
     />
 
     <InterfaceShowcase
@@ -484,7 +487,7 @@ const HashKartDetail = () => (
       phones={[
         { src: hashkartHero, alt: 'HashKart Product Listing', label: '1. Main Marketplace Feed' },
         { src: hashkartImg1, alt: 'HashKart Item Carousel', label: '2. Product Showcase' },
-        { src: hashkartImg2, alt: 'HashKart Stripe Checkout', label: '3. Stripe Payment Gateway' },
+        { src: hashkartImg2, alt: 'HashKart Razorpay Checkout', label: '3. Razorpay Payment Gateway' },
         { src: hashkartImg3, alt: 'HashKart Order Confirmation', label: '4. Order Summary Hub' },
       ]}
     />
@@ -500,14 +503,15 @@ const HashKartDetail = () => (
       phoneLabel="5. Stock Inventory Sandbox"
     />
 
-    <NextProjectCTA label="TruckMitr Logistics Suite" to="/work/truckmitr" />
+    <SystemDesign overview={projectInfo.systemDesignOverview} mermaidCode={projectInfo.mermaidFlow} imageSrc={projectInfo.architectureImage} animatedGraph={projectInfo.animatedGraph} />
+    <NextProjectCTA label="TruckMitr Logistics Suite" to="/projects/truckmitr" />
   </motion.div>
 );
 
 /* ════════════════════════════════════════
    TRUCKMITR DETAIL
 ════════════════════════════════════════ */
-const TruckMitrDetail = () => (
+const TruckMitrDetail = ({ projectInfo }) => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
     <CaseStudyHeader
       num="Case Study 04"
@@ -566,14 +570,15 @@ const TruckMitrDetail = () => (
       </motion.div>
     </section>
 
-    <NextProjectCTA label="TMConnact: Logistics Sync" to="/work/TMConnact" />
+    <SystemDesign overview={projectInfo.systemDesignOverview} mermaidCode={projectInfo.mermaidFlow} imageSrc={projectInfo.architectureImage} animatedGraph={projectInfo.animatedGraph} />
+    <NextProjectCTA label="TMConnact: Logistics Sync" to="/projects/TMConnact" />
   </motion.div>
 );
 
 /* ════════════════════════════════════════
    TMCONNACT DETAIL
 ════════════════════════════════════════ */
-const TMConnactDetail = () => (
+const TMConnactDetail = ({ projectInfo }) => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
     <CaseStudyHeader
       num="Case Study 05"
@@ -598,14 +603,15 @@ const TMConnactDetail = () => (
       ]} />
     </BriefSection>
 
-    <NextProjectCTA label="HRMS & CRM: Enterprise Suite" to="/work/hrms-crm" />
+    <SystemDesign overview={projectInfo.systemDesignOverview} mermaidCode={projectInfo.mermaidFlow} imageSrc={projectInfo.architectureImage} animatedGraph={projectInfo.animatedGraph} />
+    <NextProjectCTA label="HRMS & CRM: Enterprise Suite" to="/projects/hrms-crm" />
   </motion.div>
 );
 
 /* ════════════════════════════════════════
    HRMS DETAIL
 ════════════════════════════════════════ */
-const HRMSDetail = () => (
+const HRMSDetail = ({ projectInfo }) => (
   <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="w-full">
     <CaseStudyHeader
       num="Case Study 06"
@@ -631,7 +637,8 @@ const HRMSDetail = () => (
       ]} />
     </BriefSection>
 
-    <NextProjectCTA label="AURA: Experiential Concierge" to="/work/aura" />
+    <SystemDesign overview={projectInfo.systemDesignOverview} mermaidCode={projectInfo.mermaidFlow} imageSrc={projectInfo.architectureImage} animatedGraph={projectInfo.animatedGraph} />
+    <NextProjectCTA label="AURA: Experiential Concierge" to="/projects/aura" />
   </motion.div>
 );
 
@@ -691,12 +698,12 @@ const ProjectDetail = () => {
         </div>
       )}
 
-      {projectId === 'aura'      && <AuraDetail />}
-      {projectId === 'glowcart'  && <GlowCartDetail />}
-      {projectId === 'hashkart'  && <HashKartDetail />}
-      {projectId === 'truckmitr' && <TruckMitrDetail />}
-      {projectId === 'TMConnact' && <TMConnactDetail />}
-      {projectId === 'hrms-crm'  && <HRMSDetail />}
+      {projectId === 'aura'      && <AuraDetail projectInfo={projectInfo} />}
+      {projectId === 'glowcart'  && <GlowCartDetail projectInfo={projectInfo} />}
+      {projectId === 'hashkart'  && <HashKartDetail projectInfo={projectInfo} />}
+      {projectId === 'truckmitr' && <TruckMitrDetail projectInfo={projectInfo} />}
+      {projectId === 'TMConnact' && <TMConnactDetail projectInfo={projectInfo} />}
+      {projectId === 'hrms-crm'  && <HRMSDetail projectInfo={projectInfo} />}
     </div>
   );
 };
